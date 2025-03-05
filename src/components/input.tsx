@@ -1,5 +1,5 @@
 import { colors, fontSize } from '@/constants/theme';
-import { StyleSheet, TextInput, TextInputProps } from 'react-native';
+import { StyleSheet, TextInput, type TextInputProps } from 'react-native';
 
 const styles = StyleSheet.create({
 	input: {

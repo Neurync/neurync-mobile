@@ -2,9 +2,9 @@ import { colors, fontSize } from '@/constants/theme';
 import {
 	StyleSheet,
 	Text as T,
-	TextProps,
+	type TextProps,
 	TouchableOpacity,
-	TouchableOpacityProps,
+	type TouchableOpacityProps,
 } from 'react-native';
 
 const styles = StyleSheet.create({

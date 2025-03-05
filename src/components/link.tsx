@@ -1,11 +1,11 @@
 import { colors, fontSize } from '@/constants/theme';
-import { RelativePathString, useRouter } from 'expo-router'; // Importando o hook useRouter
+import { type RelativePathString, useRouter } from 'expo-router'; // Importando o hook useRouter
 import {
 	StyleSheet,
 	Text as T,
-	TextProps,
+	type TextProps,
 	TouchableOpacity,
-	TouchableOpacityProps,
+	type TouchableOpacityProps,
 } from 'react-native';
 
 const styles = StyleSheet.create({
