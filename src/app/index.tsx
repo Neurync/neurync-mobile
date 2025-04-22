@@ -1,9 +1,9 @@
-import Login from './login';
+import BluetoothTest from './bluetooth-test';
 
 export default function Home() {
 	return (
 		<>
-			<Login />
+			<BluetoothTest />
 		</>
 	);
 }
