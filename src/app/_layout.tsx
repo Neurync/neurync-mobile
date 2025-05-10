@@ -1,4 +1,7 @@
-import { Slot, Redirect } from 'expo-router';
+import { colors } from '@/constants/colors';
+import { Redirect, Slot } from 'expo-router';
+import * as SystemUI from 'expo-system-ui';
+import { useEffect } from 'react';
 
 function Root() {
 	const isAuthenticated = true; // Somente para testes
@@ -8,7 +11,11 @@ function Root() {
 	return <Slot />;
 }
 
-export default function RootLayout() {
+export default function App() {
+	useEffect(() => {
+		SystemUI.setBackgroundColorAsync(colors.seaGreen);
+	}, []);
+
 	// TODO adicionar um AuthProvider
 	return <Root />;
 }
