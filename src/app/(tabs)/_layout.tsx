@@ -22,19 +22,19 @@ export default function TabLayout() {
 			}}
 		>
 			<Tabs.Screen
-				name="nonverbal-conversation"
+				name="nonverbal-conversation/index"
 				options={{
 					tabBarIcon: () => <Keyboard color={'white'} size={40} />,
 				}}
 			/>
 			<Tabs.Screen
-				name="home"
+				name="home/index"
 				options={{
 					tabBarIcon: () => <House color={'white'} size={40} />,
 				}}
 			/>
 			<Tabs.Screen
-				name="user"
+				name="user/index"
 				options={{
 					tabBarIcon: () => <User color={'white'} size={40} />,
 				}}
