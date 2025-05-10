@@ -1,56 +1,50 @@
-# ♾️ Neurync - Mobile 📱
+# Welcome to your Expo app 👋
 
-## 📥 Pré-requisitos
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-- [Node.js]() (v >= 20.0)
-- NPM e NPX (vêm junto com o Node.js)
-- IDE/Editor (opcional para executar o projeto): [VsCode](https://code.visualstudio.com/download) (recomendado)
-- [Expo Go](https://expo.dev/go): aplicativo mobile
+## Get started
 
-## 👨‍💻 Como executar?
+1. Install dependencies
 
-- Clone o repositório na sua máquina
+   ```bash
+   npm install
+   ```
 
-```bash
-git clone https://github.com/rafaelsantiagosilva/neurync-mobile.git
-```
+2. Start the app
 
-- Abra a pasta **root** do projeto no terminal
+   ```bash
+   npx expo start
+   ```
 
-- Rode o comando: (para instalar os pacotes)
+In the output, you'll find options to open the app in a
 
-```bash
-npm i
-```
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-- Rode o comando: (para inicar o projeto - modo desenvolvimento)
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-```bash
-npm run start
-```
+## Get a fresh project
 
-- Verifique de estar na mesma rede Wi-Fi que seu computador que está rodando o projeto
-
-- Entre no Expo Go, pelo celular
-
-- Pelo Expo Go, escaneie o QR Code **ou** coloque a URL (ambos aparecem no terminal do computador que está rodando o projeto)
-
-## 🔧 Comandos
-
-### Iniciar o projeto em modo desenvolvimento
+When you're ready, run:
 
 ```bash
-npm run start
+npm run reset-project
 ```
 
-### Baixar pacote/biblioteca
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-```bash
-npm install <NOME_DO_PACOTE>
-```
+## Learn more
 
-#### Baixar pacote/biblioteca como dependência de desenvolvimento (somente necessária na hora de programar)
+To learn more about developing your project with Expo, look at the following resources:
 
-```bash
-npm install <NOME_DO_PACOTE> -D
-```
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+
+## Join the community
+
+Join our community of developers creating universal apps.
+
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
