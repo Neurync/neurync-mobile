@@ -3,14 +3,12 @@ import { styles } from './styles';
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { Link } from '@/components/link';
+import { Logo } from '@/components/logo';
 
 export default function Login() {
 	return (
 		<View style={styles.container}>
-			<Image
-				style={styles.logo}
-				source={require('@/assets/images/splash-icon.png')}
-			/>
+			<Logo />
 
 			<View style={styles.inputSection}>
 				<Text style={styles.title}>Login</Text>

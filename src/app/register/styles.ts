@@ -18,10 +18,6 @@ export const styles = StyleSheet.create({
     gap: 20,
     width: "100%"
   },
-  logo: {
-    width: 300,
-    height: 75
-  },
   notAccountContainer: {
     flexDirection: "row",
     justifyContent: "center",

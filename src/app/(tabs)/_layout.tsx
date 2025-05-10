@@ -5,10 +5,11 @@ import { House, Keyboard, User } from 'lucide-react-native';
 export default function TabLayout() {
 	return (
 		<Tabs
+			initialRouteName="home/index"
 			screenOptions={{
 				tabBarStyle: {
 					backgroundColor: colors.seaGreen,
-					height: 90,
+					height: 80,
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
