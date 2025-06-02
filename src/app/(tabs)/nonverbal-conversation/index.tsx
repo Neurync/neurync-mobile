@@ -4,10 +4,12 @@ import { CircleSlash2, HeartCrack, Star } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 import { screenStyle } from '../screen-style';
 import { colors } from '@/constants/colors';
+import { Logo } from '@/components/logo';
 
 export default function NonverbalConversation() {
 	return (
 		<View style={screenStyle.container}>
+			<Logo />
 			<Text style={screenStyle.title}>Selecione</Text>
 			<View
 				style={{
