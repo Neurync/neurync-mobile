@@ -3,6 +3,7 @@ import { Logo } from '@/components/logo';
 import { colors } from '@/constants/colors';
 import { View, Text } from 'react-native';
 import { Volume2, TriangleAlert, User } from 'lucide-react-native';
+import { AlertButton } from '@/components/alert-button';
 
 export default function Home() {
 	return (
@@ -12,6 +13,7 @@ export default function Home() {
 				height: '100%',
 				display: 'flex',
 				alignItems: 'center',
+				paddingTop: '10%',
 			}}
 		>
 			<Logo />
@@ -25,6 +27,8 @@ export default function Home() {
 				<ButtonIcon icon={TriangleAlert} text={'Enviar aviso ao\n professor'} />
 				<ButtonIcon icon={User} text={'Perfil'} />
 			</View>
+
+			<AlertButton />
 		</View>
 	);
 }

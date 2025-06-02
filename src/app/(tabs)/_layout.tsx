@@ -9,11 +9,12 @@ export default function TabLayout() {
 			screenOptions={{
 				tabBarStyle: {
 					backgroundColor: colors.seaGreen,
-					height: 80,
+					height: '13%',
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
 					paddingTop: 12,
+					paddingBottom: 24,
 				},
 				headerShown: false, // se quiser esconder o cabeçalho
 				tabBarShowLabel: false,

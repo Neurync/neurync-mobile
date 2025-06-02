@@ -3,7 +3,7 @@ import type { LucideIcon } from 'lucide-react-native';
 import {
 	Touchable,
 	TouchableOpacity,
-	TouchableOpacityProps,
+	type TouchableOpacityProps,
 	Text,
 } from 'react-native';
 
