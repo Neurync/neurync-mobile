@@ -8,16 +8,7 @@ import { colors } from '@/constants/colors';
 export default function NonverbalConversation() {
 	return (
 		<View style={screenStyle.container}>
-			<Text
-				style={{
-					fontWeight: 500,
-					textTransform: 'uppercase',
-					fontSize: 30,
-					color: colors.black,
-				}}
-			>
-				Selecione
-			</Text>
+			<Text style={screenStyle.title}>Selecione</Text>
 			<View
 				style={{
 					marginTop: 15,

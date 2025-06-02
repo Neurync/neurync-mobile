@@ -8,5 +8,11 @@ export const screenStyle = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     paddingTop: '10%'
+  },
+  title: {
+    fontWeight: 500,
+    textTransform: 'uppercase',
+    fontSize: 30,
+    color: colors.black,
   }
 });
