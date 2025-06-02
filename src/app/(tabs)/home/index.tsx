@@ -1,21 +1,13 @@
 import { ButtonIcon } from '@/components/button-icon';
 import { Logo } from '@/components/logo';
-import { colors } from '@/constants/colors';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Volume2, TriangleAlert, User } from 'lucide-react-native';
 import { AlertButton } from '@/components/alert-button';
+import { screenStyle } from '../screen-style';
 
 export default function Home() {
 	return (
-		<View
-			style={{
-				backgroundColor: colors.white,
-				height: '100%',
-				display: 'flex',
-				alignItems: 'center',
-				paddingTop: '10%',
-			}}
-		>
+		<View style={screenStyle.container}>
 			<Logo />
 			<View
 				style={{
