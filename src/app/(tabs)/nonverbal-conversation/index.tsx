@@ -3,10 +3,11 @@ import { ButtonIcon } from '@/components/button-icon';
 import { CircleSlash2, HeartCrack, Star } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 import { screenStyle } from '../screen-style';
-import { colors } from '@/constants/colors';
 import { Logo } from '@/components/logo';
+import { useRouter } from 'expo-router';
 
 export default function NonverbalConversation() {
+	const router = useRouter();
 	return (
 		<View style={screenStyle.container}>
 			<Logo />
@@ -17,7 +18,11 @@ export default function NonverbalConversation() {
 					gap: 15,
 				}}
 			>
-				<ButtonIcon icon={HeartCrack} text={'Sentimentos'} />
+				<ButtonIcon
+					onPress={() => router.push('/feelings')}
+					icon={HeartCrack}
+					text={'Sentimentos'}
+				/>
 				<ButtonIcon icon={CircleSlash2} text={'Problemas e\nNecessidades'} />
 				<ButtonIcon icon={Star} text={'Favoritos'} />
 			</View>
