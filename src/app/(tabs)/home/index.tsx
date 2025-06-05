@@ -3,7 +3,7 @@ import { Logo } from '@/components/logo';
 import { View } from 'react-native';
 import { Volume2, TriangleAlert, User } from 'lucide-react-native';
 import { AlertButton } from '@/components/alert-button';
-import { screenStyle } from '../screen-style';
+import { screenStyle } from '../../../constants/screen-style';
 
 export default function Home() {
 	return (

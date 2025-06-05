@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { screenStyle } from '../screen-style';
+import { screenStyle } from '../../../constants/screen-style';
 import { Logo } from '@/components/logo';
 import { colors } from '@/constants/colors';
 import { CircleUser } from 'lucide-react-native';

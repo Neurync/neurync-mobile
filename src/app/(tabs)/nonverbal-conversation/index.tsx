@@ -2,7 +2,7 @@ import { AlertButton } from '@/components/alert-button';
 import { ButtonIcon } from '@/components/button-icon';
 import { CircleSlash2, HeartCrack, Star } from 'lucide-react-native';
 import { Text, View } from 'react-native';
-import { screenStyle } from '../screen-style';
+import { screenStyle } from '../../../constants/screen-style';
 import { Logo } from '@/components/logo';
 import { useRouter } from 'expo-router';
 

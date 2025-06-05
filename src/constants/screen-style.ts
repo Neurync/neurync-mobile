@@ -14,5 +14,6 @@ export const screenStyle = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 30,
     color: colors.black,
+    textAlign: "center"
   }
 });
