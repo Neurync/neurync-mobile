@@ -1,9 +1,13 @@
+import { NonverbalButton } from '@/components/nonverbal-button';
 import { colors } from '@/constants/colors';
-import { Text, View, TouchableOpacity, TextInput } from 'react-native';
-import { Undo2 } from 'lucide-react-native';
 import { screenStyle } from '@/constants/screen-style';
+import { useRouter } from 'expo-router';
+import { Undo2 } from 'lucide-react-native';
+import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function Feelings() {
+	const router = useRouter();
+
 	return (
 		<View
 			style={{
@@ -26,7 +30,7 @@ export default function Feelings() {
 					justifyContent: 'space-around',
 				}}
 			>
-				<TouchableOpacity onPress={() => console.log('foda-se')}>
+				<TouchableOpacity onPress={() => router.back()}>
 					<Undo2 color={colors.white} size={25} />
 				</TouchableOpacity>
 				<TextInput
@@ -45,7 +49,23 @@ export default function Feelings() {
 			<View style={{ width: '100%', paddingTop: 10 }}>
 				<Text style={screenStyle.title}>Eu me sinto...</Text>
 
-				{/* TODO: Fazer listagem de botões de sentimentos */}
+				<View
+					style={{
+						paddingTop: 5,
+						width: '100%',
+						display: 'flex',
+						flexWrap: 'wrap',
+						flexDirection: 'row',
+						justifyContent: 'space-evenly',
+						alignItems: 'flex-start',
+					}}
+				>
+					<NonverbalButton />
+					<NonverbalButton />
+					<NonverbalButton />
+					<NonverbalButton />
+					<NonverbalButton />
+				</View>
 			</View>
 
 			<View
