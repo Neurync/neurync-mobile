@@ -3,7 +3,14 @@ import { colors } from '@/constants/colors';
 import { screenStyle } from '@/constants/screen-style';
 import { useRouter } from 'expo-router';
 import { Undo2 } from 'lucide-react-native';
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+	ScrollView,
+	Text,
+	TextInput,
+	TouchableOpacity,
+	View,
+} from 'react-native';
+import { nonverbalButtonData } from './data';
 
 export default function Feelings() {
 	const router = useRouter();
@@ -49,8 +56,8 @@ export default function Feelings() {
 			<View style={{ width: '100%', paddingTop: 10 }}>
 				<Text style={screenStyle.title}>Eu me sinto...</Text>
 
-				<View
-					style={{
+				<ScrollView
+					contentContainerStyle={{
 						paddingTop: 5,
 						width: '100%',
 						display: 'flex',
@@ -58,14 +65,19 @@ export default function Feelings() {
 						flexDirection: 'row',
 						justifyContent: 'space-evenly',
 						alignItems: 'flex-start',
+						overflowY: 'scroll',
 					}}
+					style={{ maxHeight: '85%' }}
 				>
-					<NonverbalButton />
-					<NonverbalButton />
-					<NonverbalButton />
-					<NonverbalButton />
-					<NonverbalButton />
-				</View>
+					{nonverbalButtonData.map(({ emoji, description, isFavorited }) => (
+						<NonverbalButton
+							key={emoji}
+							emoji={emoji}
+							description={description}
+							isFavorited={isFavorited}
+						/>
+					))}
+				</ScrollView>
 			</View>
 
 			<View

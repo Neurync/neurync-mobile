@@ -1,8 +1,14 @@
 import { colors } from '@/constants/colors';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import type { INonverbalButton as NonverbalButtonProps } from '@/interfaces/INonverbalButton';
 
-export function NonverbalButton() {
+export function NonverbalButton({
+	emoji,
+	description,
+	isFavorited,
+}: NonverbalButtonProps) {
 	return (
+		// TODO: implementar o onPress para ocorrer a comunicação
 		<View
 			style={{
 				backgroundColor: colors.seaGreen,
@@ -23,25 +29,29 @@ export function NonverbalButton() {
 				}}
 			>
 				<Text style={{ fontSize: 65, textAlign: 'center', marginBottom: -8 }}>
-					😀
+					{emoji}
 				</Text>
 				<View style={{ width: '100%' }}>
 					<TouchableOpacity style={{ alignItems: 'flex-end', paddingRight: 5 }}>
-						<Image source={require('@/assets/images/star.png')} />
+						{isFavorited ? (
+							<Image source={require('@/assets/images/fill-star.png')} />
+						) : (
+							<Image source={require('@/assets/images/star.png')} />
+						)}
 					</TouchableOpacity>
 				</View>
 			</View>
 			<Text
 				style={{
 					marginTop: 3,
-					fontSize: 20,
+					fontSize: 18,
 					textTransform: 'uppercase',
 					width: '100%',
 					textAlign: 'center',
 					fontWeight: 500,
 				}}
 			>
-				Descrição
+				{description}
 			</Text>
 		</View>
 	);
