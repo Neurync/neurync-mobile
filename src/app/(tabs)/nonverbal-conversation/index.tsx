@@ -23,7 +23,11 @@ export default function NonverbalConversation() {
 					icon={HeartCrack}
 					text={'Sentimentos'}
 				/>
-				<ButtonIcon icon={CircleSlash2} text={'Problemas e\nNecessidades'} />
+				<ButtonIcon
+					onPress={() => router.push('/problems')}
+					icon={CircleSlash2}
+					text={'Problemas e\nNecessidades'}
+				/>
 				<ButtonIcon icon={Star} text={'Favoritos'} />
 			</View>
 			<AlertButton />{' '}

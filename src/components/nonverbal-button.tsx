@@ -13,9 +13,12 @@ export function NonverbalButton({
 			style={{
 				backgroundColor: colors.seaGreen,
 				width: 140,
-				height: 150,
+				height: 'auto',
+				paddingBottom: 5,
+				paddingHorizontal: 5,
 				alignItems: 'center',
 				marginTop: 12,
+				marginBottom: 8,
 				paddingTop: 5,
 				borderRadius: 8,
 			}}
