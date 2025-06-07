@@ -1,3 +1,4 @@
+import { AlertButton } from '@/components/alert-button';
 import { NonverbalButton } from '@/components/nonverbal-button';
 import { colors } from '@/constants/colors';
 import { screenStyle } from '@/constants/screen-style';
@@ -24,6 +25,7 @@ export default function Problems() {
 				...screenStyle,
 			}}
 		>
+			<AlertButton style={{ bottom: '10%' }} />
 			<View
 				style={{
 					width: '100%',

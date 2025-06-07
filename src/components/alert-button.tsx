@@ -1,10 +1,10 @@
 import { colors } from '@/constants/colors';
 import {
-	TouchableHighlight,
+	TouchableOpacity,
 	Text,
 	StyleSheet,
-	TouchableOpacity,
 	Image,
+	type ViewStyle,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		marginBottom: 20,
 		marginRight: 20,
+		zIndex: 999,
 	},
 	text: {
 		color: colors.white,
@@ -35,13 +36,13 @@ const styles = StyleSheet.create({
 	},
 });
 
-export function AlertButton() {
+export function AlertButton({ style }: { style?: ViewStyle }) {
 	return (
-		<TouchableOpacity style={styles.container}>
+		<TouchableOpacity style={[styles.container, style]}>
 			<Image
 				style={{ height: 70, width: 70 }}
 				source={require('@/assets/images/triangle-alert.png')}
-			/>{' '}
+			/>
 			<Text style={styles.text}>Alerta</Text>
 		</TouchableOpacity>
 	);
