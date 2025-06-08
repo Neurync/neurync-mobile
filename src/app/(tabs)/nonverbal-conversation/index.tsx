@@ -28,7 +28,11 @@ export default function NonverbalConversation() {
 					icon={CircleSlash2}
 					text={'Problemas e\nNecessidades'}
 				/>
-				<ButtonIcon icon={Star} text={'Favoritos'} />
+				<ButtonIcon
+					onPress={() => router.push('/favorited')}
+					icon={Star}
+					text={'Favoritos'}
+				/>
 			</View>
 			<AlertButton />{' '}
 		</View>
