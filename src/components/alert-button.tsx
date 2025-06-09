@@ -1,11 +1,15 @@
 import { colors } from '@/constants/colors';
+import { useState } from 'react';
 import {
-	TouchableOpacity,
-	Text,
-	StyleSheet,
 	Image,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	type TouchableOpacityProps,
 	type ViewStyle,
 } from 'react-native';
+import { MessageModal } from './modals/message-modal';
+import { SuccessModal } from './modals/success-modal';
 
 const styles = StyleSheet.create({
 	container: {
@@ -24,7 +28,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		marginBottom: 20,
 		marginRight: 20,
-		zIndex: 999,
+		zIndex: 1,
 	},
 	text: {
 		color: colors.white,
@@ -36,14 +40,59 @@ const styles = StyleSheet.create({
 	},
 });
 
-export function AlertButton({ style }: { style?: ViewStyle }) {
+interface AlertButtonProps extends TouchableOpacityProps {
+	style?: ViewStyle;
+}
+
+export function AlertButton({ style, onPress }: AlertButtonProps) {
+	const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
+	const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(true);
+
+	function openMessageModal() {
+		setIsMessageModalVisible(true);
+	}
+
+	function closeMessageModal() {
+		setIsMessageModalVisible(false);
+	}
+
+	function openSuccessModal() {
+		setIsSuccessModalVisible(true);
+	}
+
+	function closeSuccessModal() {
+		setIsSuccessModalVisible(false);
+	}
+
+	function actionMessageModalButton() {
+		closeMessageModal();
+		openSuccessModal();
+	}
+
 	return (
-		<TouchableOpacity style={[styles.container, style]}>
-			<Image
-				style={{ height: 70, width: 70 }}
-				source={require('@/assets/images/triangle-alert.png')}
+		<>
+			<MessageModal
+				isVisible={isMessageModalVisible}
+				setIsVisible={setIsMessageModalVisible}
+				firstActionButtonPress={actionMessageModalButton}
+				secondActionButtonPress={actionMessageModalButton}
 			/>
-			<Text style={styles.text}>Alerta</Text>
-		</TouchableOpacity>
+
+			<SuccessModal
+				isVisible={isSuccessModalVisible}
+				setIsVisible={setIsSuccessModalVisible}
+			/>
+
+			<TouchableOpacity
+				onPress={() => setIsMessageModalVisible(true)}
+				style={[styles.container, style]}
+			>
+				<Image
+					style={{ height: 70, width: 70 }}
+					source={require('@/assets/images/triangle-alert.png')}
+				/>
+				<Text style={styles.text}>Alerta</Text>
+			</TouchableOpacity>
+		</>
 	);
 }

@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { Volume2, TriangleAlert, User } from 'lucide-react-native';
 import { AlertButton } from '@/components/alert-button';
 import { screenStyle } from '../../../constants/screen-style';
+import { MessageModal } from '@/components/modals/message-modal';
 
 export default function Home() {
 	return (
@@ -20,7 +21,7 @@ export default function Home() {
 				<ButtonIcon icon={User} text={'Perfil'} />
 			</View>
 
-			<AlertButton />
+			<AlertButton onPress={() => {}} />
 		</View>
 	);
 }
