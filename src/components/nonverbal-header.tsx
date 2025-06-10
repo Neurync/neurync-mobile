@@ -1,9 +1,10 @@
 import { colors } from '@/constants/colors';
 import { router } from 'expo-router';
 import { Undo2 } from 'lucide-react-native';
-import { TextInput, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
+import { Searchbar, type SearchbarProps } from './searchbar';
 
-export function NonverbalHeader() {
+export function NonverbalHeader({ data, setData }: SearchbarProps) {
 	return (
 		<View
 			style={{
@@ -23,17 +24,7 @@ export function NonverbalHeader() {
 			>
 				<Undo2 color={colors.white} size={25} />
 			</TouchableOpacity>
-			<TextInput
-				style={{
-					backgroundColor: colors.lightGray,
-					width: '85%',
-					borderRadius: 25,
-					fontWeight: 500,
-					paddingLeft: 5,
-					fontSize: 16,
-				}}
-				placeholder="Pesquisar..."
-			/>
+			<Searchbar data={data} setData={setData} />
 		</View>
 	);
 }

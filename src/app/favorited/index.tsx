@@ -4,19 +4,11 @@ import { NonverbalHeader } from '@/components/nonverbal-header';
 import { colors } from '@/constants/colors';
 import { screenStyle } from '@/constants/screen-style';
 import type { INonverbalButton } from '@/interfaces/INonverbalButton';
-import { useRouter } from 'expo-router';
-import { Undo2 } from 'lucide-react-native';
-import {
-	ScrollView,
-	Text,
-	TextInput,
-	TouchableOpacity,
-	View,
-} from 'react-native';
+import { useState } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 
 export default function Problems() {
-	const router = useRouter();
-	const nonverbalButtonData: INonverbalButton[] = [];
+	const [data, setData] = useState<INonverbalButton[]>([]);
 
 	return (
 		<View
@@ -28,8 +20,7 @@ export default function Problems() {
 			}}
 		>
 			<AlertButton style={{ bottom: '10%' }} />
-			<NonverbalHeader />
-
+			<NonverbalHeader data={data} setData={setData} />
 			<ScrollView style={{ width: '100%', paddingVertical: 10 }}>
 				<Text style={screenStyle.title}>Favoritos</Text>
 
@@ -46,7 +37,7 @@ export default function Problems() {
 						overflowY: 'scroll',
 					}}
 				>
-					{nonverbalButtonData.map(({ emoji, description, isFavorited }) => (
+					{data.map(({ emoji, description, isFavorited }) => (
 						<NonverbalButton
 							key={emoji}
 							emoji={emoji}

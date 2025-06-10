@@ -3,19 +3,12 @@ import { NonverbalButton } from '@/components/nonverbal-button';
 import { NonverbalHeader } from '@/components/nonverbal-header';
 import { colors } from '@/constants/colors';
 import { screenStyle } from '@/constants/screen-style';
-import { useRouter } from 'expo-router';
-import { Undo2 } from 'lucide-react-native';
-import {
-	ScrollView,
-	Text,
-	TextInput,
-	TouchableOpacity,
-	View,
-} from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { nonverbalButtonData } from './data';
+import { useState } from 'react';
 
 export default function Problems() {
-	const router = useRouter();
+	const [data, setData] = useState(nonverbalButtonData);
 
 	return (
 		<View
@@ -27,7 +20,7 @@ export default function Problems() {
 			}}
 		>
 			<AlertButton style={{ bottom: '10%' }} />
-			<NonverbalHeader />
+			<NonverbalHeader data={data} setData={setData} />
 
 			<ScrollView style={{ width: '100%', paddingVertical: 10 }}>
 				<Text style={screenStyle.title}>Problemas e necessidades</Text>
@@ -45,7 +38,7 @@ export default function Problems() {
 						overflowY: 'scroll',
 					}}
 				>
-					{nonverbalButtonData.map(({ emoji, description, isFavorited }) => (
+					{data.map(({ emoji, description, isFavorited }) => (
 						<NonverbalButton
 							key={emoji}
 							emoji={emoji}
