@@ -1,4 +1,5 @@
 import { colors } from '@/constants/colors';
+import { AppProvider } from '@/contexts/AppProvider';
 import { Redirect, Slot } from 'expo-router';
 import * as SystemUI from 'expo-system-ui';
 import { useEffect } from 'react';
@@ -17,5 +18,9 @@ export default function App() {
 	}, []);
 
 	// TODO adicionar um AuthProvider
-	return <Root />;
+	return (
+		<AppProvider>
+			<Root />
+		</AppProvider>
+	);
 }
