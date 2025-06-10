@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { screenStyle } from '../../../constants/screen-style';
 import { Logo } from '@/components/logo';
 import { colors } from '@/constants/colors';
 import { CircleUser } from 'lucide-react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { screenStyle } from '../../../constants/screen-style';
 
 const styles = StyleSheet.create({
 	userInfoContainer: {
