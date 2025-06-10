@@ -49,7 +49,7 @@ export default function NonverbalConversation() {
 					text={'Favoritos'}
 				/>
 			</View>
-			<AlertButton />{' '}
+			<AlertButton />
 		</View>
 	);
 }
