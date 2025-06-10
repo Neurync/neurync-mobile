@@ -84,7 +84,7 @@ export function AlertButton({ style, onPress }: AlertButtonProps) {
 			/>
 
 			<TouchableOpacity
-				onPress={() => setIsMessageModalVisible(true)}
+				onPress={openMessageModal}
 				style={[styles.container, style]}
 			>
 				<Image
