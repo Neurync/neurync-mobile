@@ -1,6 +1,6 @@
 import { colors } from '@/constants/colors';
+import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { Undo2 } from 'lucide-react-native';
 import { TouchableOpacity, View } from 'react-native';
 import { Searchbar, type SearchbarProps } from './searchbar';
 
@@ -22,7 +22,7 @@ export function NonverbalHeader({ data, setData }: SearchbarProps) {
 			<TouchableOpacity
 				onPress={() => router.push('/(tabs)/nonverbal-conversation')}
 			>
-				<Undo2 color={colors.white} size={25} />
+				<Feather name="corner-up-left" color={colors.white} size={25} />
 			</TouchableOpacity>
 			<Searchbar data={data} setData={setData} />
 		</View>

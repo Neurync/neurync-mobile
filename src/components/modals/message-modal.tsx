@@ -1,7 +1,6 @@
 import { colors } from '@/constants/colors';
-import { useState } from 'react';
-import { Modal, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
-import { CircleHelp, LogOut } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons';
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const styles = StyleSheet.create({
 	backdrop: {
@@ -115,7 +114,7 @@ export function MessageModal({
 							onPress={firstActionButtonPress}
 							style={styles.actionButton}
 						>
-							<LogOut size={50} color={colors.black} />
+							<Feather name="log-out" size={50} color={colors.black} />
 							<Text style={styles.buttonText}>Preciso sair</Text>
 						</TouchableOpacity>
 
@@ -123,7 +122,7 @@ export function MessageModal({
 							onPress={secondActionButtonPress}
 							style={styles.actionButton}
 						>
-							<CircleHelp size={50} color={colors.black} />
+							<Feather name="help-circle" size={50} color={colors.black} />
 							<Text style={styles.buttonText}>Preciso de {'\n'} ajuda</Text>
 						</TouchableOpacity>
 					</View>

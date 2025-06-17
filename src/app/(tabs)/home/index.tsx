@@ -4,7 +4,6 @@ import { Logo } from '@/components/logo';
 import { MessageModal } from '@/components/modals/message-modal';
 import { SuccessModal } from '@/components/modals/success-modal';
 import { useRouter } from 'expo-router';
-import { TriangleAlert, User, Volume2 } from 'lucide-react-native';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { screenStyle } from '../../../constants/screen-style';
@@ -25,17 +24,17 @@ export default function Home() {
 				}}
 			>
 				<ButtonIcon
-					icon={Volume2}
+					icon="volume-2"
 					text={'Comunicação\n não verbal'}
 					onPress={() => router.push('/nonverbal-conversation')}
 				/>
 				<ButtonIcon
-					icon={TriangleAlert}
+					icon="alert-triangle"
 					text={'Enviar aviso ao\n professor'}
 					onPress={() => setIsMessageModalOpen(true)}
 				/>
 				<ButtonIcon
-					icon={User}
+					icon="user"
 					text={'Perfil'}
 					onPress={() => router.push('/user')}
 				/>

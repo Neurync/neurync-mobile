@@ -1,8 +1,8 @@
 import { Logo } from '@/components/logo';
 import { colors } from '@/constants/colors';
-import { CircleUser } from 'lucide-react-native';
 import { StyleSheet, Text, View } from 'react-native';
 import { screenStyle } from '../../../constants/screen-style';
+import { Feather } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
 	userInfoContainer: {
@@ -43,7 +43,7 @@ export default function User() {
 		<View style={screenStyle.container}>
 			<Logo />
 			<Text style={screenStyle.title}>Seu perfil</Text>
-			<CircleUser size={150} color={colors.seaGreen} />
+			<Feather name="user" size={150} color={colors.seaGreen} />
 			<View style={styles.userInfoContainer}>
 				<Text style={styles.username}>Nome da Silva</Text>
 				<Text style={styles.userInfo}>email.bacana@gmail.com</Text>

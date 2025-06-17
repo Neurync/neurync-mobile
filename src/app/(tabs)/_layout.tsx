@@ -1,6 +1,6 @@
 import { colors } from '@/constants/colors';
+import { Feather } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { House, Keyboard, User } from 'lucide-react-native';
 
 export default function TabLayout() {
 	return (
@@ -26,19 +26,19 @@ export default function TabLayout() {
 			<Tabs.Screen
 				name="nonverbal-conversation/index"
 				options={{
-					tabBarIcon: () => <Keyboard color={'white'} size={40} />,
+					tabBarIcon: () => <Feather name="mic-off" color={'white'} size={30} />,
 				}}
 			/>
 			<Tabs.Screen
 				name="home/index"
 				options={{
-					tabBarIcon: () => <House color={'white'} size={40} />,
+					tabBarIcon: () => <Feather name="home" color={'white'} size={30} />,
 				}}
 			/>
 			<Tabs.Screen
 				name="user/index"
 				options={{
-					tabBarIcon: () => <User color={'white'} size={40} />,
+					tabBarIcon: () => <Feather name="user" color={'white'} size={30} />,
 				}}
 			/>
 		</Tabs>

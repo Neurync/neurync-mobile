@@ -1,7 +1,6 @@
 import { colors } from '@/constants/colors';
-import { useState } from 'react';
-import { Modal, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
-import { CircleCheckBig } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons';
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const styles = StyleSheet.create({
 	backdrop: {
@@ -102,7 +101,7 @@ export function SuccessModal({ isVisible, setIsVisible }: MessageModalProps) {
 		>
 			<View style={styles.backdrop}>
 				<View style={styles.modalContainer}>
-					<CircleCheckBig color={colors.seaGreen} size={50} />
+					<Feather name="check-circle" color={colors.seaGreen} size={50} />
 					<Text style={styles.title}>Mensagem enviada</Text>
 					<Text style={{ textAlign: 'center', fontSize: 20 }}>
 						Por favor, aguarde a {'\n'}resposta de seu professor.

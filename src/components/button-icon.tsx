@@ -1,18 +1,17 @@
+import { Feather } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
-import type { LucideIcon } from 'lucide-react-native';
 import {
-	Touchable,
 	TouchableOpacity,
-	type TouchableOpacityProps,
 	Text,
+	type TouchableOpacityProps,
 } from 'react-native';
 
 interface ButtonIconProps extends TouchableOpacityProps {
-	icon: LucideIcon;
+	icon: keyof typeof Feather.glyphMap; // nomes dos ícones disponíveis
 	text: string;
 }
 
-export function ButtonIcon({ icon: Icon, text, ...rest }: ButtonIconProps) {
+export function ButtonIcon({ icon, text, ...rest }: ButtonIconProps) {
 	return (
 		<TouchableOpacity
 			style={{
@@ -31,17 +30,14 @@ export function ButtonIcon({ icon: Icon, text, ...rest }: ButtonIconProps) {
 				borderRightWidth: 4,
 				borderBottomWidth: 4,
 				shadowColor: '#000',
-				shadowOffset: {
-					width: 0,
-					height: 2,
-				},
+				shadowOffset: { width: 0, height: 2 },
 				shadowOpacity: 0.25,
 				shadowRadius: 3.84,
 				elevation: 5,
 			}}
 			{...rest}
 		>
-			<Icon color={colors.gold} size={50} />
+			<Feather name={icon} color={colors.gold} size={50} />
 			<Text
 				style={{
 					textTransform: 'uppercase',
