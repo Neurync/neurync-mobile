@@ -30,7 +30,7 @@ const getUserAlertMessages = <TData = AxiosResponse<GetUserAlertMessages200Item[
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/alert-messages/`,options
+      `http://192.168.2.101:3333/alert-messages/`,options
     );
   }
 /**
@@ -41,7 +41,7 @@ const createUserAlertMessage = <TData = AxiosResponse<CreateUserAlertMessage201>
     createUserAlertMessageBody: CreateUserAlertMessageBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/alert-messages/`,
+      `http://192.168.2.101:3333/alert-messages/`,
       createUserAlertMessageBody,options
     );
   }
@@ -54,7 +54,7 @@ const editContentUserAlertMessage = <TData = AxiosResponse<unknown>>(
     editContentUserAlertMessageBody: EditContentUserAlertMessageBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `/alert-messages/edit/content/${id}`,
+      `http://192.168.2.101:3333/alert-messages/edit/content/${id}`,
       editContentUserAlertMessageBody,options
     );
   }
@@ -66,7 +66,7 @@ const favoriteContentUserAlertMessage = <TData = AxiosResponse<unknown>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `/alert-messages/favorite/${id}`,undefined,options
+      `http://192.168.2.101:3333/alert-messages/favorite/${id}`,undefined,options
     );
   }
 /**
@@ -77,7 +77,7 @@ const unfavoriteContentUserAlertMessage = <TData = AxiosResponse<unknown>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `/alert-messages/unfavorite/${id}`,undefined,options
+      `http://192.168.2.101:3333/alert-messages/unfavorite/${id}`,undefined,options
     );
   }
 /**
@@ -88,7 +88,7 @@ const deleteContentUserAlertMessage = <TData = AxiosResponse<unknown>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.delete(
-      `/alert-messages/${id}`,options
+      `http://192.168.2.101:3333/alert-messages/${id}`,options
     );
   }
 return {getUserAlertMessages,createUserAlertMessage,editContentUserAlertMessage,favoriteContentUserAlertMessage,unfavoriteContentUserAlertMessage,deleteContentUserAlertMessage}};

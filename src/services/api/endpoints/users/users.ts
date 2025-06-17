@@ -34,7 +34,7 @@ const getUserById = <TData = AxiosResponse<GetUserById200>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/users/${id}`,options
+      `http://192.168.2.101:3333/users/${id}`,options
     );
   }
 /**
@@ -46,7 +46,7 @@ const editUser = <TData = AxiosResponse<unknown>>(
     editUserBody: EditUserBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.put(
-      `/users/${id}`,
+      `http://192.168.2.101:3333/users/${id}`,
       editUserBody,options
     );
   }
@@ -58,7 +58,7 @@ const deleteUser = <TData = AxiosResponse<unknown>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.delete(
-      `/users/${id}`,options
+      `http://192.168.2.101:3333/users/${id}`,options
     );
   }
 /**
@@ -69,7 +69,7 @@ const createUser = <TData = AxiosResponse<CreateUser201>>(
     createUserBody: CreateUserBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/users/register`,
+      `http://192.168.2.101:3333/users/register`,
       createUserBody,options
     );
   }
@@ -81,7 +81,7 @@ const loginUser = <TData = AxiosResponse<LoginUser200>>(
     loginUserBody: LoginUserBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/users/login`,
+      `http://192.168.2.101:3333/users/login`,
       loginUserBody,options
     );
   }
@@ -93,7 +93,7 @@ const editUserAbout = <TData = AxiosResponse<unknown>>(
     editUserAboutBody: EditUserAboutBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `/users/about`,
+      `http://192.168.2.101:3333/users/about`,
       editUserAboutBody,options
     );
   }
@@ -105,7 +105,7 @@ const editUserNeurodivergence = <TData = AxiosResponse<unknown>>(
     editUserNeurodivergenceBody: EditUserNeurodivergenceBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `/users/neurodivergence`,
+      `http://192.168.2.101:3333/users/neurodivergence`,
       editUserNeurodivergenceBody,options
     );
   }

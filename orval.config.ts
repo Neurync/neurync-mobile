@@ -1,4 +1,4 @@
-import { SERVER_PORT } from "./src/env";
+import { SERVER_IP, SERVER_PORT } from "./src/env";
 
 export default {
   neuryncApi: {
@@ -7,7 +7,9 @@ export default {
       mode: "tags-split",
       target: "./src/services/api/endpoints",
       schemas: "./src/services/api/schemas",
+      httpClient: "axios",
       client: "axios",
+      baseUrl: `http://${SERVER_IP}:${SERVER_PORT}`,
     },
   },
 };

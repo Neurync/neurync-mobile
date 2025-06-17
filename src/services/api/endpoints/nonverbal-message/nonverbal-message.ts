@@ -30,7 +30,7 @@ const getUserNonverbalMessages = <TData = AxiosResponse<GetUserNonverbalMessages
      options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/nonverbal-messages/`,options
+      `http://192.168.2.101:3333/nonverbal-messages/`,options
     );
   }
 /**
@@ -41,7 +41,7 @@ const createUserNonverbalMessage = <TData = AxiosResponse<CreateUserNonverbalMes
     createUserNonverbalMessageBody: CreateUserNonverbalMessageBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/nonverbal-messages/`,
+      `http://192.168.2.101:3333/nonverbal-messages/`,
       createUserNonverbalMessageBody,options
     );
   }
@@ -54,7 +54,7 @@ const editUserNonverbalMessage = <TData = AxiosResponse<unknown>>(
     editUserNonverbalMessageBody: EditUserNonverbalMessageBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.put(
-      `/nonverbal-messages/edit/${id}`,
+      `http://192.168.2.101:3333/nonverbal-messages/edit/${id}`,
       editUserNonverbalMessageBody,options
     );
   }
@@ -66,7 +66,7 @@ const favoriteUserNonverbalMessage = <TData = AxiosResponse<unknown>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `/nonverbal-messages/favorite/${id}`,undefined,options
+      `http://192.168.2.101:3333/nonverbal-messages/favorite/${id}`,undefined,options
     );
   }
 /**
@@ -77,7 +77,7 @@ const unfavoriteUserNonverbalMessage = <TData = AxiosResponse<unknown>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.patch(
-      `/nonverbal-messages/unfavorite/${id}`,undefined,options
+      `http://192.168.2.101:3333/nonverbal-messages/unfavorite/${id}`,undefined,options
     );
   }
 /**
@@ -88,7 +88,7 @@ const deleteUserNonverbalMessage = <TData = AxiosResponse<unknown>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.delete(
-      `/nonverbal-messages/${id}`,options
+      `http://192.168.2.101:3333/nonverbal-messages/${id}`,options
     );
   }
 return {getUserNonverbalMessages,createUserNonverbalMessage,editUserNonverbalMessage,favoriteUserNonverbalMessage,unfavoriteUserNonverbalMessage,deleteUserNonverbalMessage}};

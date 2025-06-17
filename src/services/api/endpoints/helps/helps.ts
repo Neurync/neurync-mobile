@@ -30,7 +30,7 @@ const getUserHelps = <TData = AxiosResponse<GetUserHelps200Item[]>>(
     userId: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/helps/${userId}`,options
+      `http://192.168.2.101:3333/helps/${userId}`,options
     );
   }
 /**
@@ -41,7 +41,7 @@ const createUserHelp = <TData = AxiosResponse<CreateUserHelp201>>(
     createUserHelpBody: CreateUserHelpBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/helps/`,
+      `http://192.168.2.101:3333/helps/`,
       createUserHelpBody,options
     );
   }
@@ -54,7 +54,7 @@ const editUserHelp = <TData = AxiosResponse<unknown>>(
     editUserHelpBody: EditUserHelpBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.put(
-      `/helps/${id}`,
+      `http://192.168.2.101:3333/helps/${id}`,
       editUserHelpBody,options
     );
   }
@@ -66,7 +66,7 @@ const deleteUserHelp = <TData = AxiosResponse<unknown>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.delete(
-      `/helps/${id}`,options
+      `http://192.168.2.101:3333/helps/${id}`,options
     );
   }
 return {getUserHelps,createUserHelp,editUserHelp,deleteUserHelp}};

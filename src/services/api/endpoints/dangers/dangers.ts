@@ -30,7 +30,7 @@ const getUserDangers = <TData = AxiosResponse<GetUserDangers200Item[]>>(
     userId: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
-      `/dangers/${userId}`,options
+      `http://192.168.2.101:3333/dangers/${userId}`,options
     );
   }
 /**
@@ -41,7 +41,7 @@ const createUserDanger = <TData = AxiosResponse<CreateUserDanger201>>(
     createUserDangerBody: CreateUserDangerBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `/dangers/`,
+      `http://192.168.2.101:3333/dangers/`,
       createUserDangerBody,options
     );
   }
@@ -54,7 +54,7 @@ const editUserDanger = <TData = AxiosResponse<unknown>>(
     editUserDangerBody: EditUserDangerBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.put(
-      `/dangers/${id}`,
+      `http://192.168.2.101:3333/dangers/${id}`,
       editUserDangerBody,options
     );
   }
@@ -66,7 +66,7 @@ const deleteUserDanger = <TData = AxiosResponse<unknown>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.delete(
-      `/dangers/${id}`,options
+      `http://192.168.2.101:3333/dangers/${id}`,options
     );
   }
 return {getUserDangers,createUserDanger,editUserDanger,deleteUserDanger}};
