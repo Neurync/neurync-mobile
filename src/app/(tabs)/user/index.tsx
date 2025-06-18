@@ -1,8 +1,12 @@
 import { Logo } from '@/components/logo';
 import { colors } from '@/constants/colors';
+import { AppContext } from '@/contexts/AppContext';
+import { Feather } from '@expo/vector-icons';
+import { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { screenStyle } from '../../../constants/screen-style';
-import { Feather } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
 	userInfoContainer: {
@@ -39,6 +43,14 @@ const styles = StyleSheet.create({
 });
 
 export default function User() {
+	const router = useRouter();
+	const { setUser } = useContext(AppContext);
+
+	function logout() {
+		setUser(null);
+		router.push('/login');
+	}
+
 	return (
 		<View style={screenStyle.container}>
 			<Logo />
@@ -50,6 +62,19 @@ export default function User() {
 				<Text style={styles.userInfoTitle}>O que eu gosto: </Text>
 				<Text style={styles.userInfoTitle}>O que eu NÃO gosto: </Text>
 			</View>
+			<TouchableOpacity
+				style={{
+					position: 'absolute',
+					bottom: 8,
+					flexDirection: 'row',
+					alignItems: 'center',
+					gap: 5,
+				}}
+				onPress={logout}
+			>
+				<Feather name="log-out" color={colors.red} size={20} />
+				<Text style={{ color: colors.red, fontSize: 25 }}>Sair</Text>
+			</TouchableOpacity>
 		</View>
 	);
 }
