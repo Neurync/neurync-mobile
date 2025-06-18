@@ -1,14 +1,10 @@
 import { colors } from '@/constants/colors';
 import { AppProvider } from '@/contexts/AppProvider';
-import { Redirect, Slot } from 'expo-router';
+import { Slot } from 'expo-router';
 import * as SystemUI from 'expo-system-ui';
 import { useEffect } from 'react';
 
 function Root() {
-	const isAuthenticated = true; // Somente para testes
-
-	if (!isAuthenticated) return <Redirect href={'/login'} />;
-
 	return <Slot />;
 }
 
