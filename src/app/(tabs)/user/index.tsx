@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 
 export default function User() {
 	const router = useRouter();
-	const { setUser } = useContext(AppContext);
+	const { user, setUser } = useContext(AppContext);
 
 	function logout() {
 		setUser(null);
@@ -57,8 +57,8 @@ export default function User() {
 			<Text style={screenStyle.title}>Seu perfil</Text>
 			<Feather name="user" size={150} color={colors.seaGreen} />
 			<View style={styles.userInfoContainer}>
-				<Text style={styles.username}>Nome da Silva</Text>
-				<Text style={styles.userInfo}>email.bacana@gmail.com</Text>
+				<Text style={styles.username}>{user?.name}</Text>
+				<Text style={styles.userInfo}>{user?.email}</Text>
 				<Text style={styles.userInfoTitle}>O que eu gosto: </Text>
 				<Text style={styles.userInfoTitle}>O que eu NÃO gosto: </Text>
 			</View>
