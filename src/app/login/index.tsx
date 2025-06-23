@@ -5,15 +5,23 @@ import { Logo } from '@/components/logo';
 import { decodeUserLoginToken } from '@/libs/decode-jwt';
 import { getUsers } from '@/services/api/endpoints/users/users';
 import { useState, useContext } from 'react';
-import { ActivityIndicator, Alert, Text, View } from 'react-native';
+import {
+	ActivityIndicator,
+	Alert,
+	Text,
+	View,
+	TouchableOpacity,
+} from 'react-native';
 import { styles } from './styles';
 import { colors } from '@/constants/colors';
 import { AppContext } from '@/contexts/AppContext';
 import { useRouter } from 'expo-router';
+import { Feather } from '@expo/vector-icons';
 
 export default function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const router = useRouter();
@@ -25,6 +33,8 @@ export default function Login() {
 	async function login() {
 		if (!email || !password)
 			return Alert.alert('Opa!', 'Por favor, preencha todos os campos');
+
+		setIsLoading(true);
 
 		try {
 			const { data } = await loginUser({ email, password });
@@ -59,7 +69,6 @@ export default function Login() {
 	}
 
 	async function handleSubmit() {
-		setIsLoading(true);
 		const response = await login();
 
 		if (!response) return;
@@ -85,14 +94,32 @@ export default function Login() {
 					value={email}
 					onChangeText={(text) => setEmail(text.trim())}
 				/>
-				<Input
-					placeholder="Senha"
-					textContentType="password"
-					secureTextEntry={true}
-					value={password}
-					onChangeText={(text) => setPassword(text)}
-					autoCapitalize="none"
-				/>
+				<View>
+					<Input
+						placeholder="Senha"
+						textContentType="password"
+						secureTextEntry={!isPasswordVisible}
+						value={password}
+						onChangeText={(text) => setPassword(text)}
+						autoCapitalize="none"
+					/>
+					<TouchableOpacity
+						style={{
+							position: 'absolute',
+							right: 10,
+							top: 10,
+							zIndex: 1,
+							cursor: 'pointer',
+						}}
+						onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+					>
+						<Feather
+							name={isPasswordVisible ? 'eye-off' : 'eye'}
+							color={colors.seaGreen}
+							size={30}
+						/>
+					</TouchableOpacity>
+				</View>
 				<Link href={'../register'}>
 					<Link.Text>Esqueci minha senha</Link.Text>
 				</Link>
