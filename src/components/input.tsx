@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, type TextInputProps } from 'react-native';
 
 const styles = StyleSheet.create({
 	input: {
-		fontSize: fontSize.xl,
+		fontSize: 22,
 		borderWidth: 2,
 		width: '100%',
 		borderRadius: 25,

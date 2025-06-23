@@ -9,12 +9,17 @@ import {
 
 const styles = StyleSheet.create({
 	button: {
-		paddingVertical: 7,
+		paddingVertical: 12,
 		backgroundColor: colors.seaGreen,
 		width: '60%',
-		borderRadius: 15,
+		borderRadius: 10,
 	},
-	text: { fontSize: fontSize.xl, color: colors.white, textAlign: 'center' },
+	text: {
+		fontSize: fontSize.xl,
+		color: colors.white,
+		textAlign: 'center',
+		fontWeight: 500,
+	},
 });
 
 function Text({ children, ...rest }: TextProps) {
