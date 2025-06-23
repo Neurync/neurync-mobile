@@ -1,8 +1,15 @@
 import { colors } from '@/constants/colors';
+import { AppContext } from '@/contexts/AppContext';
 import { Feather } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs, useRouter } from 'expo-router';
+import { useContext, useEffect } from 'react';
 
 export default function TabLayout() {
+	const { user } = useContext(AppContext);
+	const router = useRouter();
+
+	if (!user) return <Redirect href={'/login'} />;
+
 	return (
 		<Tabs
 			initialRouteName={'home/index'}

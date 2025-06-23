@@ -64,8 +64,11 @@ export default function Login() {
 
 		if (!response) return;
 
-		setUser(response);
+		const { id, name, email, token } = response;
+
+		setUser({ id, name, email, token });
 		setIsLoading(false);
+
 		router.push('/(tabs)/home');
 	}
 

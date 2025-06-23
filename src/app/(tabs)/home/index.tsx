@@ -12,11 +12,9 @@ import { AppContext } from '@/contexts/AppContext';
 export default function Home() {
 	const router = useRouter();
 	const { user } = useContext(AppContext);
+	console.log(user);
 	const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
 	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-	useEffect(() => {
-		if (!user && router.canGoBack()) router.push('/login');
-	}, [user, router]);
 
 	return (
 		<View style={screenStyle.container}>
