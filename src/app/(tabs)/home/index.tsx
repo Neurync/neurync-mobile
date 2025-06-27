@@ -4,15 +4,13 @@ import { Logo } from '@/components/logo';
 import { MessageModal } from '@/components/modals/message-modal';
 import { SuccessModal } from '@/components/modals/success-modal';
 import { useRouter } from 'expo-router';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { View } from 'react-native';
 import { screenStyle } from '../../../constants/screen-style';
-import { AppContext } from '@/contexts/AppContext';
 
 export default function Home() {
 	const router = useRouter();
-	const { user } = useContext(AppContext);
-	console.log(user);
+
 	const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
 	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 

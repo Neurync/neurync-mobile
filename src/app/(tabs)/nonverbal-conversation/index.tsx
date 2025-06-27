@@ -1,20 +1,12 @@
 import { AlertButton } from '@/components/alert-button';
 import { ButtonIcon } from '@/components/button-icon';
 import { Logo } from '@/components/logo';
-import { AppContext } from '@/contexts/AppContext';
 import { useRouter } from 'expo-router';
-import { useContext, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { screenStyle } from '../../../constants/screen-style';
 
 export default function NonverbalConversation() {
 	const router = useRouter();
-
-	const { setCurrentScreen } = useContext(AppContext);
-
-	useEffect(() => {
-		setCurrentScreen('nonverbal-conversation/index');
-	}, [setCurrentScreen]);
 
 	return (
 		<View style={screenStyle.container}>
