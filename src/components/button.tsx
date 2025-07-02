@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
 		color: colors.white,
 		textAlign: 'center',
 		fontWeight: 500,
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 });
 
@@ -28,7 +31,7 @@ function Text({ children, ...rest }: TextProps) {
 
 function Button({ children, ...rest }: TouchableOpacityProps) {
 	return (
-		<TouchableOpacity style={styles.button} {...rest}>
+		<TouchableOpacity style={styles.button && styles.button} {...rest}>
 			{children}
 		</TouchableOpacity>
 	);

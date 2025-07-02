@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: fontSize.xl,
+    lineHeight: 45,
     marginVertical: 5,
     textAlign: "center"
   },
@@ -30,4 +31,11 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: fontSize.lg
   },
+  stepContainer: {
+    alignItems: "center",
+    justifyContent: "space-around",
+    height: "50%",
+    width: "100%",
+    backgroundColor: colors.white
+  }
 });
