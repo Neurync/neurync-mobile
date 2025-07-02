@@ -2,7 +2,10 @@ import { colors } from '@/constants/colors';
 import { Feather } from '@expo/vector-icons';
 import { useState } from 'react';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Toast, { BaseToast, BaseToastProps } from 'react-native-toast-message';
+import Toast, {
+	BaseToast,
+	type BaseToastProps,
+} from 'react-native-toast-message';
 import { Button } from '../button';
 import { Input } from '../input';
 import { fontSize } from '@/constants/fontSize';
