@@ -3,6 +3,8 @@ import { colors } from '@/constants/colors';
 import { Feather } from '@expo/vector-icons';
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from '../styles';
+import { set, z } from 'zod';
+import { useEffect } from 'react';
 
 type StepFormProps = {
 	name: string;
@@ -18,8 +20,8 @@ type StepFormProps = {
 	isConfirmPasswordVisible: boolean;
 	setIsConfirmPasswordVisible: (isConfirmPasswordVisible: boolean) => void;
 
-	setIsThisStepVisible: (isThisStepVisible: boolean) => void;
-	setIsNextStepVisible: (isNextStepVisible: boolean) => void;
+	isFormValid: boolean;
+	validateForm: () => void;
 };
 
 export function StepForm({
@@ -35,16 +37,11 @@ export function StepForm({
 	setIsPasswordVisible,
 	isConfirmPasswordVisible,
 	setIsConfirmPasswordVisible,
-	setIsThisStepVisible,
-	setIsNextStepVisible,
+	isFormValid,
+	validateForm,
 }: StepFormProps) {
-	function handleSubmit() {
-		if (!name || !email || !password || !confirmPassword)
-			return Alert.alert('Opa!', 'Por favor, preencha todos os campos');
-
-		setIsThisStepVisible(false);
-		setIsNextStepVisible(true);
-	}
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(validateForm, [isFormValid]);
 
 	return (
 		<View style={styles.stepContainer}>

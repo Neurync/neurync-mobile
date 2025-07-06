@@ -5,14 +5,32 @@ import { colors } from '@/constants/colors';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { StepForm } from './steps/step-form';
 import { StepHelpsAndDangers } from './steps/step-helps-and-dangers';
 import { StepNeurodivergence } from './steps/step-neurodivergence';
 import { styles } from './styles';
+import { z } from 'zod';
+import { DefaultModal } from '@/components/modals/default-modal';
 
 export default function Register() {
 	const router = useRouter();
+
+	// Modal states
+	const [isModalVisible, setIsModalVisible] = useState(true);
+	const [modalIcon, setModalIcon] = useState<
+		keyof typeof Feather.glyphMap | undefined
+	>(undefined);
+	const [modalFirstText, setModalFirstText] = useState('');
+	const [modalSecondText, setModalSecondText] = useState('');
+	const [modalFirstButtonText, setModalFirstButtonText] = useState('');
+	const [modalFirstButtonPress, setModalFirstButtonPress] = useState<() => void>(
+		() => {}
+	);
+	const [modalSecondButtonText, setModalSecondButtonText] = useState('');
+	const [modalSecondButtonPress, setModalSecondButtonPress] = useState<
+		(() => void) | undefined
+	>(() => {});
 
 	// Step Form states
 	const [name, setName] = useState('');
@@ -23,9 +41,10 @@ export default function Register() {
 	const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
 		useState(false);
 	const [isFormStepVisible, setIsFormStepVisible] = useState(true);
+	const [isFormStepValid, setIsFormStepValid] = useState(false);
 
 	// Step Neurodivergence states
-	const [neurodivergence, setNeurodivergence] = useState('');
+	const [neurodivergence, setNeurodivergence] = useState<string | undefined>('');
 	const [isNeurodivergenceStepVisible, setIsNeurodivergenceStepVisible] =
 		useState(false);
 
@@ -70,12 +89,36 @@ export default function Register() {
 		throw new Error("Don't exists a use case for that step");
 	}
 
+	function validateForm() {
+		if (!name || !email || !password || !confirmPassword) return;
+		if (password !== confirmPassword) return;
+		if (!z.string().email().safeParse(email).success) return;
+
+		setIsFormStepValid(true);
+	}
+
+	function showFormMessages() {
+		if (!name || !email || !password || !confirmPassword)
+			return Alert.alert('Opa!', 'Por favor, preencha todos os campos');
+
+		if (!z.string().email().safeParse(email).success)
+			return Alert.alert('Opa!', 'Por favor, insira um email valido');
+
+		if (password !== confirmPassword)
+			return Alert.alert('Opa!', 'As senhas devem ser iguais');
+	}
+
 	function formStepSubmit() {
+		if (!isFormStepValid) return;
+
 		setIsFormStepVisible(false);
 		setIsNeurodivergenceStepVisible(true);
 	}
 
 	function neurodivergenceStepSubmit() {
+		if (!neurodivergence)
+			return Alert.alert('Opa!', 'Por favor, selecione uma neurodivergência');
+
 		setIsNeurodivergenceStepVisible(false);
 		setIsHelpsAndDangersStepVisible(true);
 	}
@@ -109,14 +152,14 @@ export default function Register() {
 					setIsPasswordVisible={setIsPasswordVisible}
 					isConfirmPasswordVisible={isConfirmPasswordVisible}
 					setIsConfirmPasswordVisible={setIsConfirmPasswordVisible}
-					setIsThisStepVisible={setIsFormStepVisible}
-					setIsNextStepVisible={setIsNeurodivergenceStepVisible}
+					validateForm={validateForm}
+					isFormValid={isFormStepValid}
 				/>
 			)}
 
 			{isNeurodivergenceStepVisible && (
 				<StepNeurodivergence
-					neurodivergence={neurodivergence}
+					neurodivergence={neurodivergence ?? ''}
 					setNeurodivergence={setNeurodivergence}
 				/>
 			)}
@@ -130,8 +173,11 @@ export default function Register() {
 				/>
 			)}
 
-			<Button onPress={submit}>
-				<Button.Text>Próximo</Button.Text>
+			<Button
+				onPress={isFormStepValid ? submit : showFormMessages}
+				disabled={!isFormStepValid}
+			>
+				<Button.Text disabled={!isFormStepValid}>Próximo</Button.Text>
 			</Button>
 
 			<View style={styles.notAccountContainer}>
@@ -140,6 +186,18 @@ export default function Register() {
 					<Link.Text>Login</Link.Text>
 				</Link>
 			</View>
+
+			<DefaultModal
+				isVisible={isModalVisible}
+				setIsVisible={setIsModalVisible}
+				icon={modalIcon}
+				firstText={modalFirstText}
+				secondText={modalSecondText}
+				firstButtonText={modalFirstButtonText}
+				firstButtonPress={modalFirstButtonPress}
+				secondButtonText={modalSecondButtonText}
+				secondActionButtonPress={modalSecondButtonPress}
+			/>
 		</View>
 	);
 }

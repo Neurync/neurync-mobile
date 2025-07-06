@@ -9,7 +9,7 @@ import {
 	type ViewStyle,
 } from 'react-native';
 import { MessageModal } from './modals/message-modal';
-import { SuccessModal } from './modals/success-modal';
+import { DefaultModal as SuccessModal } from './modals/default-modal';
 
 const styles = StyleSheet.create({
 	container: {
@@ -79,8 +79,13 @@ export function AlertButton({ style, onPress }: AlertButtonProps) {
 			/>
 
 			<SuccessModal
+				icon="check-circle"
+				firstText="Mensagem enviada"
+				secondText="Por favor, aguarde a resposta de seu professor."
 				isVisible={isSuccessModalVisible}
 				setIsVisible={setIsSuccessModalVisible}
+				firstButtonText="Ok"
+				firstButtonPress={() => setIsSuccessModalVisible(false)}
 			/>
 
 			<TouchableOpacity

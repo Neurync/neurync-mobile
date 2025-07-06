@@ -1,5 +1,6 @@
 import { styles } from '../styles';
 import { InputWithSuggestions } from '@/components/input-with-sugestions';
+import { DefaultModal } from '@/components/modals/default-modal';
 import { Text, View } from 'react-native';
 
 type StepNeurodivergenceProps = {

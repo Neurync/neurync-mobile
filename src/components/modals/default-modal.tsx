@@ -1,6 +1,13 @@
 import { colors } from '@/constants/colors';
 import { Feather } from '@expo/vector-icons';
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+	Modal,
+	Pressable,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from 'react-native';
 
 const styles = StyleSheet.create({
 	backdrop: {
@@ -89,31 +96,58 @@ const styles = StyleSheet.create({
 interface MessageModalProps {
 	isVisible: boolean;
 	setIsVisible: (visible: boolean) => void;
+	icon?: keyof typeof Feather.glyphMap;
+	firstText: string;
+	secondText?: string;
+
+	firstButtonText: string;
+	firstButtonPress: () => void;
+	secondButtonText?: string;
+	secondActionButtonPress?: () => void;
 }
 
-export function SuccessModal({ isVisible, setIsVisible }: MessageModalProps) {
+export function DefaultModal({
+	isVisible,
+	setIsVisible,
+	icon,
+	firstText,
+	secondText,
+	firstButtonText,
+	firstButtonPress,
+	secondButtonText,
+	secondActionButtonPress,
+}: MessageModalProps) {
 	return (
 		<Modal
 			animationType="fade"
 			transparent
 			visible={isVisible}
 			onRequestClose={() => setIsVisible(false)}
+			onPointerLeave={() => setIsVisible(false)}
 		>
-			<View style={styles.backdrop}>
-				<View style={styles.modalContainer}>
-					<Feather name="check-circle" color={colors.seaGreen} size={50} />
-					<Text style={styles.title}>Mensagem enviada</Text>
-					<Text style={{ textAlign: 'center', fontSize: 20 }}>
-						Por favor, aguarde a {'\n'}resposta de seu professor.
-					</Text>
-					<TouchableOpacity
-						style={styles.backButton}
-						onPress={() => setIsVisible(false)}
-					>
-						<Text style={styles.backButtonText}>Ok</Text>
+			<Pressable style={styles.backdrop} onPress={() => setIsVisible(false)}>
+				<Pressable style={styles.modalContainer} onPress={() => {}}>
+					<Feather name={icon} color={colors.seaGreen} size={50} />
+					<Text style={styles.title}>{firstText}</Text>
+
+					{secondText && (
+						<Text style={{ textAlign: 'center', fontSize: 20 }}>{secondText}</Text>
+					)}
+
+					<TouchableOpacity style={styles.backButton} onPress={firstButtonPress}>
+						<Text style={styles.backButtonText}>{firstButtonText}</Text>
 					</TouchableOpacity>
-				</View>
-			</View>
+
+					{secondButtonText && (
+						<TouchableOpacity
+							style={styles.backButton}
+							onPress={secondActionButtonPress}
+						>
+							<Text style={styles.backButtonText}>{secondButtonText}</Text>
+						</TouchableOpacity>
+					)}
+				</Pressable>
+			</Pressable>
 		</Modal>
 	);
 }
