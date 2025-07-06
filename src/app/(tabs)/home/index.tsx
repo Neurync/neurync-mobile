@@ -1,8 +1,8 @@
 import { AlertButton } from '@/components/alert-button';
 import { ButtonIcon } from '@/components/button-icon';
 import { Logo } from '@/components/logo';
+import { DefaultModal as SuccessModal } from '@/components/modals/default-modal';
 import { MessageModal } from '@/components/modals/message-modal';
-import { SuccessModal } from '@/components/modals/default-modal';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
@@ -52,12 +52,18 @@ export default function Home() {
 				}}
 				setIsVisible={setIsMessageModalOpen}
 			/>
+
 			<SuccessModal
+				icon="check-circle"
+				firstText="Mensagem enviada"
+				secondText="Por favor, aguarde a resposta de seu professor."
 				isVisible={isSuccessModalOpen}
 				setIsVisible={setIsSuccessModalOpen}
+				firstButtonText="Ok"
+				firstButtonPress={() => setIsSuccessModalOpen(false)}
 			/>
 
-			<AlertButton onPress={() => {}} />
+			<AlertButton />
 		</View>
 	);
 }
