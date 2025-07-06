@@ -44,7 +44,7 @@ interface AlertButtonProps extends TouchableOpacityProps {
 	style?: ViewStyle;
 }
 
-export function AlertButton({ style, onPress }: AlertButtonProps) {
+export function AlertButton({ style }: AlertButtonProps) {
 	const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
 	const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
 
