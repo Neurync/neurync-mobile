@@ -13,6 +13,8 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.seaGreen,
 		width: '60%',
 		borderRadius: 10,
+		borderWidth: 2,
+		borderColor: colors.seaGreen,
 	},
 	text: {
 		fontSize: fontSize.xl,
@@ -23,15 +25,44 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
+
+	outlineButton: {
+		paddingVertical: 12,
+		backgroundColor: colors.white,
+		width: '60%',
+		borderRadius: 10,
+		borderWidth: 2,
+		borderColor: colors.seaGreen,
+	},
+	outlineText: {
+		fontSize: fontSize.xl,
+		color: colors.seaGreen,
+		textAlign: 'center',
+		fontWeight: 500,
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 });
 
-function Text({ children, ...rest }: TextProps) {
-	return <T style={styles.text}>{children}</T>;
+interface ButtonTextProps extends TextProps {
+	outline?: boolean;
 }
 
-function Button({ children, ...rest }: TouchableOpacityProps) {
+function Text({ children, outline, ...rest }: ButtonTextProps) {
+	return <T style={outline ? styles.outlineText : styles.text}>{children}</T>;
+}
+
+interface ButtonProps extends TouchableOpacityProps {
+	outline?: boolean;
+}
+
+function Button({ children, outline, ...rest }: ButtonProps) {
 	return (
-		<TouchableOpacity style={styles.button && styles.button} {...rest}>
+		<TouchableOpacity
+			style={outline ? styles.outlineButton : styles.button}
+			{...rest}
+		>
 			{children}
 		</TouchableOpacity>
 	);
