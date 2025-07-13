@@ -1,5 +1,5 @@
 import type { IUserPayload } from '@/interfaces/IUserPayload';
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
 
 interface IAppContext {
 	user: IUserPayload | null;
