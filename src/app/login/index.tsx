@@ -42,7 +42,8 @@ export default function Login() {
 			const { id } = decodeUserLoginToken(token);
 			const { data: user } = await getUserById(id);
 			return { ...user, token };
-			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+
+			// biome-ignore lint/suspicious/noExplicitAny: try-catch
 		} catch (error: any) {
 			if (error.response) {
 				const { status } = error.response;
