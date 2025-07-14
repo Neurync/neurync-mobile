@@ -1,16 +1,9 @@
 import { DefaultModal } from '@/components/modals/default-modal';
-import { colors, fontSize } from '@/constants/theme';
 import { useRegisterScreenContext } from '@/contexts/register-screen/RegisterScreenProvider';
 import { getUsers } from '@/services/api/endpoints/users/users';
 import { CreateUserBody } from '@/services/api/schemas';
-import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
 import { Alert } from 'react-native';
-import Toast, {
-	BaseToast,
-	type BaseToastProps,
-} from 'react-native-toast-message';
 
 export type ModalAnswer = 'yes' | 'no';
 
@@ -48,19 +41,17 @@ export function ConfirmRegisterModal({
 		setIsVisible(false);
 	}
 
-	function goToLoginScreen() {
-		router.push('/login');
-	}
-
 	async function handleCreateUser(user: CreateUserBody) {
 		setIsCreatingAccount(true);
 
 		try {
-			const response = await createUser(user);
+			await createUser(user);
+
 			setIsCreatingAccount(false);
 			Alert.alert('Conta criada com sucesso!');
+
 			setIsVisible(false);
-			console.log(response);
+
 			router.push('/login');
 		} catch (error: any) {
 			if (error.response) {
