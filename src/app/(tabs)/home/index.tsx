@@ -58,7 +58,7 @@ export default function Home() {
 				firstText="Mensagem enviada"
 				secondText="Por favor, aguarde a resposta de seu professor."
 				isVisible={isSuccessModalOpen}
-				setIsVisible={setIsSuccessModalOpen}
+				closeModal={() => setIsSuccessModalOpen(false)}
 				firstButtonText="Ok"
 				firstButtonPress={() => setIsSuccessModalOpen(false)}
 			/>

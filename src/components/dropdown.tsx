@@ -1,9 +1,18 @@
 import { colors, fontSize } from '@/constants/theme';
-import { FlatList, StyleSheet, View, Text } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import {
+	FlatList,
+	StyleSheet,
+	View,
+	Text,
+	TouchableOpacity,
+} from 'react-native';
 
 type DropdownProps = {
 	data: string[];
 	emptyComponentLabel?: string;
+	editable?: boolean;
+	onRemove?: (item: string) => void;
 };
 
 export const styles = StyleSheet.create({
@@ -23,6 +32,8 @@ export const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		borderBottomWidth: 1,
 		borderBottomColor: colors.lightGray,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
 	},
 	emptyListElement: {
 		height: '100%',
@@ -37,7 +48,12 @@ export const styles = StyleSheet.create({
 	},
 });
 
-export function Dropdown({ data, emptyComponentLabel }: DropdownProps) {
+export function Dropdown({
+	data,
+	emptyComponentLabel,
+	editable,
+	onRemove,
+}: DropdownProps) {
 	return (
 		<View style={styles.dropdown}>
 			<FlatList
@@ -45,6 +61,12 @@ export function Dropdown({ data, emptyComponentLabel }: DropdownProps) {
 				renderItem={({ item }) => (
 					<View style={styles.element}>
 						<Text style={styles.elementText}>{item}</Text>
+
+						{editable && (
+							<TouchableOpacity onPress={() => onRemove?.(item)}>
+								<Feather name="trash-2" size={21} color={colors.seaGreen} />
+							</TouchableOpacity>
+						)}
 					</View>
 				)}
 				ListEmptyComponent={() => (

@@ -83,9 +83,9 @@ export function AlertButton({ style }: AlertButtonProps) {
 				firstText="Mensagem enviada"
 				secondText="Por favor, aguarde a resposta de seu professor."
 				isVisible={isSuccessModalVisible}
-				setIsVisible={setIsSuccessModalVisible}
+				closeModal={closeSuccessModal}
 				firstButtonText="Ok"
-				firstButtonPress={() => setIsSuccessModalVisible(false)}
+				firstButtonPress={() => closeSuccessModal}
 			/>
 
 			<TouchableOpacity

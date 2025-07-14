@@ -2,14 +2,6 @@ import { StyleSheet } from "react-native";
 import { colors, fontSize } from "@/constants/theme"
 
 export const styles = StyleSheet.create({
-  container: {
-    padding: 40,
-    alignItems: "center",
-    justifyContent: "space-around",
-    height: "100%",
-    width: "100%",
-    backgroundColor: colors.white
-  },
   title: {
     fontSize: fontSize.xl,
     lineHeight: 45,
@@ -32,10 +24,20 @@ export const styles = StyleSheet.create({
     fontSize: fontSize.lg
   },
   stepContainer: {
+    padding: 40,
     alignItems: "center",
+    alignContent: 'space-between',
     justifyContent: "space-around",
-    height: "50%",
+    height: "100%",
     width: "100%",
     backgroundColor: colors.white
+  },
+  bottomStep: {
+    height: "30%",
+    width: '100%',
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    gap: 12,
+    paddingBottom: 32
   }
 });

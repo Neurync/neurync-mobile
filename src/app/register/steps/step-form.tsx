@@ -1,47 +1,65 @@
+import { Button } from '@/components/button';
 import { Input } from '@/components/input';
+import { Link } from '@/components/link';
 import { colors } from '@/constants/colors';
 import { Feather } from '@expo/vector-icons';
-import { Alert, Text, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { z } from 'zod';
 import { styles } from '../styles';
-import { set, z } from 'zod';
-import { useEffect } from 'react';
+import { StepFormModal } from './modals/step-form-modal';
+import { useRegisterScreenContext } from '@/contexts/register-screen/RegisterScreenProvider';
 
-type StepFormProps = {
-	name: string;
-	setName: (name: string) => void;
-	email: string;
-	setEmail: (email: string) => void;
-	password: string;
-	setPassword: (password: string) => void;
-	confirmPassword: string;
-	setConfirmPassword: (confirmPassword: string) => void;
-	isPasswordVisible: boolean;
-	setIsPasswordVisible: (isPasswordVisible: boolean) => void;
-	isConfirmPasswordVisible: boolean;
-	setIsConfirmPasswordVisible: (isConfirmPasswordVisible: boolean) => void;
+export function StepForm() {
+	const {
+		name,
+		setName,
+		email,
+		setEmail,
+		password,
+		setPassword,
+		confirmPassword,
+		setConfirmPassword,
+		submit,
+	} = useRegisterScreenContext();
 
-	isFormValid: boolean;
-	validateForm: () => void;
-};
+	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+	const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+		useState(false);
 
-export function StepForm({
-	name,
-	setName,
-	email,
-	setEmail,
-	password,
-	setPassword,
-	confirmPassword,
-	setConfirmPassword,
-	isPasswordVisible,
-	setIsPasswordVisible,
-	isConfirmPasswordVisible,
-	setIsConfirmPasswordVisible,
-	isFormValid,
-	validateForm,
-}: StepFormProps) {
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(validateForm, [isFormValid]);
+	const [modalSecondText, setModalSecondText] = useState('');
+	const [isModalVisible, setIsModalVisible] = useState(false);
+
+	function openModal() {
+		setIsModalVisible(true);
+	}
+
+	function validateForm() {
+		if (!name || !email || !password || !confirmPassword) {
+			setModalSecondText('Por favor, preencha todos os campos.');
+			openModal();
+			return false;
+		}
+
+		if (!z.string().email().safeParse(email).success) {
+			setModalSecondText('Insira um email válido.');
+			openModal();
+			return false;
+		}
+
+		if (password !== confirmPassword) {
+			setModalSecondText('As senhas devem ser iguais.');
+			openModal();
+			return false;
+		}
+
+		return true;
+	}
+
+	function handlePress() {
+		if (!validateForm()) return;
+		submit();
+	}
 
 	return (
 		<View style={styles.stepContainer}>
@@ -106,6 +124,25 @@ export function StepForm({
 					</TouchableOpacity>
 				</View>
 			</View>
+
+			<View style={styles.bottomStep}>
+				<Button onPress={handlePress}>
+					<Button.Text>Próximo</Button.Text>
+				</Button>
+
+				<View style={styles.notAccountContainer}>
+					<Text style={styles.notAccountText}>Já tem uma conta? </Text>
+					<Link href={'../login'}>
+						<Link.Text>Login</Link.Text>
+					</Link>
+				</View>
+			</View>
+
+			<StepFormModal
+				secondText={modalSecondText}
+				isVisible={isModalVisible}
+				setIsVisible={setIsModalVisible}
+			/>
 		</View>
 	);
 }

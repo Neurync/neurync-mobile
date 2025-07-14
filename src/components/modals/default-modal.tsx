@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
 		paddingVertical: 12,
 		paddingHorizontal: 24,
 		marginTop: 8,
-		width: '30%',
+		width: 'auto', // ou 140, ou 48%, etc
+		minWidth: 120,
 		shadowColor: colors.black,
 		shadowOpacity: 0.2,
 		shadowOffset: { width: 0, height: 2 },
 		shadowRadius: 3,
 		elevation: 3,
-		position: 'absolute',
-		bottom: 20,
+		alignItems: 'center',
 	},
 	backButtonText: {
 		textTransform: 'uppercase',
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
 
 interface MessageModalProps {
 	isVisible: boolean;
-	setIsVisible: (visible: boolean) => void;
+	closeModal: () => void;
 	icon?: keyof typeof Feather.glyphMap;
 	firstText: string;
 	secondText?: string;
@@ -108,7 +108,7 @@ interface MessageModalProps {
 
 export function DefaultModal({
 	isVisible,
-	setIsVisible,
+	closeModal,
 	icon,
 	firstText,
 	secondText,
@@ -122,11 +122,20 @@ export function DefaultModal({
 			animationType="fade"
 			transparent
 			visible={isVisible}
-			onRequestClose={() => setIsVisible(false)}
-			onPointerLeave={() => setIsVisible(false)}
+			onRequestClose={closeModal}
+			onPointerLeave={closeModal}
 		>
-			<Pressable style={styles.backdrop} onPress={() => setIsVisible(false)}>
+			<Pressable style={styles.backdrop} onPress={closeModal}>
 				<Pressable style={styles.modalContainer} onPress={() => {}}>
+					<TouchableOpacity style={{ position: 'absolute', top: 10, right: 10 }}>
+						<Feather
+							name="x-circle"
+							size={30}
+							color={colors.seaGreen}
+							onPress={closeModal}
+						/>
+					</TouchableOpacity>
+
 					<Feather name={icon} color={colors.seaGreen} size={50} />
 					<Text style={styles.title}>{firstText}</Text>
 
@@ -134,18 +143,28 @@ export function DefaultModal({
 						<Text style={{ textAlign: 'center', fontSize: 20 }}>{secondText}</Text>
 					)}
 
-					<TouchableOpacity style={styles.backButton} onPress={firstButtonPress}>
-						<Text style={styles.backButtonText}>{firstButtonText}</Text>
-					</TouchableOpacity>
-
-					{secondButtonText && (
-						<TouchableOpacity
-							style={styles.backButton}
-							onPress={secondActionButtonPress}
-						>
-							<Text style={styles.backButtonText}>{secondButtonText}</Text>
+					<View
+						style={{
+							flexDirection: 'row',
+							justifyContent: 'center',
+							alignItems: 'center',
+							gap: 16,
+							marginTop: 20,
+						}}
+					>
+						<TouchableOpacity style={styles.backButton} onPress={firstButtonPress}>
+							<Text style={styles.backButtonText}>{firstButtonText}</Text>
 						</TouchableOpacity>
-					)}
+
+						{secondButtonText && (
+							<TouchableOpacity
+								style={styles.backButton}
+								onPress={secondActionButtonPress}
+							>
+								<Text style={styles.backButtonText}>{secondButtonText}</Text>
+							</TouchableOpacity>
+						)}
+					</View>
 				</Pressable>
 			</Pressable>
 		</Modal>

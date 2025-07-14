@@ -1,17 +1,41 @@
-import { styles } from '../styles';
 import { InputWithSuggestions } from '@/components/input-with-sugestions';
-import { DefaultModal } from '@/components/modals/default-modal';
+import { useRegisterScreenContext } from '@/contexts/register-screen/RegisterScreenProvider';
 import { Text, View } from 'react-native';
+import { styles } from '../styles';
+import {
+	StepNeurodivergenceModal,
+	type ModalAnswer,
+} from './modals/step-neurodivergence-modal';
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/button';
+import { Link } from '@/components/link';
 
-type StepNeurodivergenceProps = {
-	neurodivergence: string;
-	setNeurodivergence: (neurodivergence: string) => void;
-};
+export function StepNeurodivergence() {
+	const { neurodivergence, setNeurodivergence, submit } =
+		useRegisterScreenContext();
 
-export function StepNeurodivergence({
-	neurodivergence,
-	setNeurodivergence,
-}: StepNeurodivergenceProps) {
+	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [modalAnswer, setModalAnswer] = useState<ModalAnswer>('no');
+
+	useEffect(() => {
+		if (modalAnswer === 'yes') submit();
+	}, [modalAnswer]),
+		function closeModal() {
+			setIsModalVisible(false);
+		};
+
+	function openModal() {
+		setIsModalVisible(true);
+	}
+
+	function handlePress() {
+		if (!neurodivergence) {
+			return openModal();
+		}
+
+		submit();
+	}
+
 	return (
 		<View style={styles.stepContainer}>
 			<View style={{ width: '100%', gap: 5 }}>
@@ -34,6 +58,24 @@ export function StepNeurodivergence({
 					]}
 				/>
 			</View>
+
+			<View style={styles.bottomStep}>
+				<Button onPress={handlePress}>
+					<Button.Text>Próximo</Button.Text>
+				</Button>
+				<View style={styles.notAccountContainer}>
+					<Text style={styles.notAccountText}>Já tem uma conta? </Text>
+					<Link href={'../login'}>
+						<Link.Text>Login</Link.Text>
+					</Link>
+				</View>
+			</View>
+
+			<StepNeurodivergenceModal
+				isVisible={isModalVisible}
+				setIsVisible={setIsModalVisible}
+				setModalAnswer={setModalAnswer}
+			/>
 		</View>
 	);
 }
