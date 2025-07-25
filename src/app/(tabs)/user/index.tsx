@@ -2,11 +2,13 @@ import { Logo } from '@/components/logo';
 import { colors } from '@/constants/colors';
 import { AppContext } from '@/contexts/AppContext';
 import { Feather } from '@expo/vector-icons';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { screenStyle } from '../../../constants/screen-style';
 import { useRouter } from 'expo-router';
 import { TouchableOpacity } from 'react-native';
+import { QrCodeModal } from '@/components/modals/qr-code-modal';
+import { QRDCODE_WEB_URL } from '@/env';
 
 const styles = StyleSheet.create({
 	userInfoContainer: {
@@ -40,11 +42,36 @@ const styles = StyleSheet.create({
 		width: '100%',
 		fontWeight: 500,
 	},
+	qrCodeButton: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		width: '95%',
+		borderWidth: 1,
+		borderColor: colors.seaGreen,
+		borderRadius: 10,
+		padding: 6,
+	},
+	qrCodeButtonText: {
+		fontSize: 20,
+		color: colors.seaGreen,
+		textAlign: 'left',
+		fontWeight: 500,
+	},
 });
 
 export default function User() {
 	const router = useRouter();
 	const { user, setUser } = useContext(AppContext);
+	const [isQrCodeModalVisible, setIsQrCodeModalVisible] = useState(false);
+
+	function openQrCodeModal() {
+		setIsQrCodeModalVisible(true);
+	}
+
+	function closeQrCodeModal() {
+		setIsQrCodeModalVisible(false);
+	}
 
 	function logout() {
 		setUser(null);
@@ -61,6 +88,10 @@ export default function User() {
 				<Text style={styles.userInfo}>{user?.email}</Text>
 				<Text style={styles.userInfoTitle}>O que eu gosto: </Text>
 				<Text style={styles.userInfoTitle}>O que eu NÃO gosto: </Text>
+				<TouchableOpacity style={styles.qrCodeButton} onPress={openQrCodeModal}>
+					<Text style={styles.qrCodeButtonText}>QR Code</Text>
+					<Feather name="link" size={20} color={colors.seaGreen} />
+				</TouchableOpacity>
 			</View>
 			<TouchableOpacity
 				style={{
@@ -75,6 +106,11 @@ export default function User() {
 				<Feather name="log-out" color={colors.red} size={20} />
 				<Text style={{ color: colors.red, fontSize: 25 }}>Sair</Text>
 			</TouchableOpacity>
+			<QrCodeModal
+				isVisible={isQrCodeModalVisible}
+				closeModal={closeQrCodeModal}
+				qrCode={`${QRDCODE_WEB_URL}"${user?.id}"`}
+			/>
 		</View>
 	);
 }
