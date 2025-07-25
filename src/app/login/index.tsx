@@ -40,11 +40,17 @@ export default function Login() {
 			const { data } = await loginUser({ email, password });
 			const { token } = data;
 			const { id } = decodeUserLoginToken(token);
-			const { data: user } = await getUserById(id);
+			const { data: user } = await getUserById(id, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
 			return { ...user, token };
 
 			// biome-ignore lint/suspicious/noExplicitAny: try-catch
 		} catch (error: any) {
+			setIsLoading(false);
+
 			if (error.response) {
 				const { status } = error.response;
 
