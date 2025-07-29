@@ -2,21 +2,22 @@ import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { Link } from '@/components/link';
 import { Logo } from '@/components/logo';
+import { colors } from '@/constants/colors';
+import { AppContext } from '@/contexts/AppContext';
 import { decodeUserLoginToken } from '@/libs/decode-jwt';
 import { getUsers } from '@/services/api/endpoints/users/users';
-import { useState, useContext } from 'react';
+import { userStorage } from '@/storage/user-storage';
+import { Feather } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { useContext, useState } from 'react';
 import {
 	ActivityIndicator,
 	Alert,
 	Text,
-	View,
 	TouchableOpacity,
+	View,
 } from 'react-native';
 import { styles } from './styles';
-import { colors } from '@/constants/colors';
-import { AppContext } from '@/contexts/AppContext';
-import { useRouter } from 'expo-router';
-import { Feather } from '@expo/vector-icons';
 
 export default function Login() {
 	const [email, setEmail] = useState('');
@@ -68,9 +69,9 @@ export default function Login() {
 				}
 			}
 
-			Alert.alert(
+			return Alert.alert(
 				'Erro ao realizar login',
-				'Verifique as credenciais e tente novamente.'
+				'Ocorreu um problema desconhecido. Tente novamente mais tarde.'
 			);
 		}
 	}
@@ -81,10 +82,13 @@ export default function Login() {
 		if (!response) return;
 
 		const { id, name, email, token } = response;
+		const user = { id, name, email, token };
 
-		setUser({ id, name, email, token });
+		setUser(user);
+
+		await userStorage.save(user);
+
 		setIsLoading(false);
-
 		router.push('/(tabs)/home');
 	}
 
