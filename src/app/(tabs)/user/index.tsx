@@ -3,7 +3,7 @@ import { colors } from '@/constants/colors';
 import { AppContext } from '@/contexts/AppContext';
 import { Feather } from '@expo/vector-icons';
 import { useContext, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { screenStyle } from '../../../constants/screen-style';
 import { useRouter } from 'expo-router';
 import { TouchableOpacity } from 'react-native';
@@ -11,7 +11,7 @@ import { QrCodeModal } from '@/components/modals/qr-code-modal';
 import { QRDCODE_WEB_URL } from '@/env';
 
 const styles = StyleSheet.create({
-	userInfoContainer: {
+	container: {
 		display: 'flex',
 		alignItems: 'flex-start',
 		paddingTop: 5,
@@ -21,26 +21,34 @@ const styles = StyleSheet.create({
 		gap: 12,
 	},
 	username: {
-		fontSize: 25,
+		fontSize: 21,
 		color: colors.black,
 		textAlign: 'left',
 		fontWeight: 400,
 		textTransform: 'uppercase',
 		width: '100%',
 	},
-	userInfo: {
+	useremail: {
 		fontSize: 20,
 		color: colors.black,
 		textAlign: 'left',
 		fontWeight: 400,
 		width: '100%',
 	},
+	userInfoContainer: {
+		width: '50%',
+		borderWidth: 1,
+		borderRadius: 8,
+		borderColor: colors.seaGreen,
+		height: '100%',
+	},
 	userInfoTitle: {
 		fontSize: 20,
-		color: colors.black,
-		textAlign: 'left',
+		color: colors.seaGreen,
+		textAlign: 'center',
 		width: '100%',
 		fontWeight: 500,
+		paddingVertical: 5,
 	},
 	qrCodeButton: {
 		flexDirection: 'row',
@@ -82,17 +90,86 @@ export default function User() {
 		<View style={screenStyle.container}>
 			<Logo />
 			<Text style={screenStyle.title}>Seu perfil</Text>
-			<Feather name="user" size={150} color={colors.seaGreen} />
-			<View style={styles.userInfoContainer}>
-				<Text style={styles.username}>{user?.name}</Text>
-				<Text style={styles.userInfo}>{user?.email}</Text>
-				<Text style={styles.userInfoTitle}>O que eu gosto: </Text>
-				<Text style={styles.userInfoTitle}>O que eu NÃO gosto: </Text>
-				<TouchableOpacity style={styles.qrCodeButton} onPress={openQrCodeModal}>
-					<Text style={styles.qrCodeButtonText}>QR Code</Text>
-					<Feather name="link" size={20} color={colors.seaGreen} />
+
+			<View
+				style={{
+					borderWidth: 5,
+					borderColor: colors.seaGreen,
+					borderRadius: '100%',
+					padding: 8,
+				}}
+			>
+				<Feather name="user" size={150} color={colors.seaGreen} />
+				<TouchableOpacity
+					style={{
+						backgroundColor: colors.seaGreen,
+						height: 45,
+						width: 45,
+						justifyContent: 'center',
+						alignItems: 'center',
+						position: 'absolute',
+						bottom: 0,
+						right: 0,
+						borderColor: colors.lightSeaGreen,
+						borderWidth: 3,
+						borderRadius: 25,
+					}}
+					onPress={() => console.log({ user })}
+				>
+					<Feather name="edit" color={colors.white} size={21} />
 				</TouchableOpacity>
 			</View>
+
+			<View style={styles.container}>
+				<Text style={styles.username}>{user?.name}</Text>
+				<Text style={styles.useremail}>{user?.email}</Text>
+			</View>
+
+			<View
+				style={{
+					flexDirection: 'row',
+					alignItems: 'flex-start',
+					justifyContent: 'flex-start',
+					padding: 8,
+					width: '100%',
+				}}
+			>
+				<View
+					style={[
+						styles.userInfoContainer,
+						{ borderTopRightRadius: 0, borderBottomRightRadius: 0 },
+					]}
+				>
+					<Text style={styles.userInfoTitle}>CONFORTOS</Text>
+
+					<FlatList
+						data={user?.helps}
+						keyExtractor={(danger) => danger.id}
+						renderItem={({ item: danger }) => <Text>{danger.about}</Text>}
+					/>
+				</View>
+
+				<View
+					style={[
+						styles.userInfoContainer,
+						{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 },
+					]}
+				>
+					<Text style={styles.userInfoTitle}>GATILHOS</Text>
+
+					<FlatList
+						data={user?.dangers}
+						keyExtractor={(danger) => danger.id}
+						renderItem={({ item: danger }) => <Text>{danger.about}</Text>}
+					/>
+				</View>
+			</View>
+
+			<TouchableOpacity style={styles.qrCodeButton} onPress={openQrCodeModal}>
+				<Text style={styles.qrCodeButtonText}>QR Code</Text>
+				<Feather name="link" size={20} color={colors.seaGreen} />
+			</TouchableOpacity>
+
 			<TouchableOpacity
 				style={{
 					position: 'absolute',
