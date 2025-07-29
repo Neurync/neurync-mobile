@@ -81,12 +81,13 @@ export default function Login() {
 
 		if (!response) return;
 
-		const { id, name, email, token } = response;
-		const user = { id, name, email, token };
+		console.log({ response });
 
-		setUser(user);
+		console.log({ dangers: response.dangers });
 
-		await userStorage.save(user);
+		setUser(response);
+
+		await userStorage.save(response);
 
 		setIsLoading(false);
 		router.push('/(tabs)/home');

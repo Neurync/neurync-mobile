@@ -1,7 +1,7 @@
-import { IUserPayload } from '@/interfaces/IUserPayload';
-import { AppContext } from './AppContext';
-import { type ReactNode, useState, useEffect } from 'react';
+import type { IUserPayload } from '@/interfaces/IUserPayload';
 import { userStorage } from '@/storage/user-storage';
+import { type ReactNode, useEffect, useState } from 'react';
+import { AppContext } from './AppContext';
 
 export function AppProvider({ children }: { children: ReactNode }) {
 	const [user, setUser] = useState<IUserPayload | null>(null);
@@ -11,9 +11,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 		setUser(previousUser);
 	}
 
-	useEffect(() => {
-		loadUser();
-	}, []);
+	loadUser();
 
 	return (
 		<AppContext.Provider value={{ user, setUser }}>

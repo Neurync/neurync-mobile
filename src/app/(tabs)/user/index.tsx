@@ -1,14 +1,20 @@
 import { Logo } from '@/components/logo';
-import { colors } from '@/constants/colors';
-import { AppContext } from '@/contexts/AppContext';
-import { Feather } from '@expo/vector-icons';
-import { useContext, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { screenStyle } from '../../../constants/screen-style';
-import { useRouter } from 'expo-router';
-import { TouchableOpacity } from 'react-native';
 import { QrCodeModal } from '@/components/modals/qr-code-modal';
+import { colors } from '@/constants/colors';
+import { fontSize } from '@/constants/fontSize';
+import { AppContext } from '@/contexts/AppContext';
 import { QRDCODE_WEB_URL } from '@/env';
+import { Feather } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { useContext, useState } from 'react';
+import {
+	FlatList,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from 'react-native';
+import { screenStyle } from '../../../constants/screen-style';
 
 const styles = StyleSheet.create({
 	container: {
@@ -41,6 +47,8 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		borderColor: colors.seaGreen,
 		height: '100%',
+		paddingLeft: 5,
+		paddingBottom: 12,
 	},
 	userInfoTitle: {
 		fontSize: 20,
@@ -49,6 +57,14 @@ const styles = StyleSheet.create({
 		width: '100%',
 		fontWeight: 500,
 		paddingVertical: 5,
+	},
+	userHelpOrDangerList: {
+		height: 90,
+	},
+	userHelpOrDanger: {
+		fontSize: fontSize.lg,
+		paddingLeft: 5,
+		color: colors.gray,
 	},
 	qrCodeButton: {
 		flexDirection: 'row',
@@ -114,15 +130,22 @@ export default function User() {
 						borderWidth: 3,
 						borderRadius: 25,
 					}}
-					onPress={() => console.log({ user })}
+					onPress={() => router.push('/edit-profile')}
 				>
 					<Feather name="edit" color={colors.white} size={21} />
 				</TouchableOpacity>
 			</View>
 
 			<View style={styles.container}>
-				<Text style={styles.username}>{user?.name}</Text>
+				<Text style={styles.username}>
+					{user?.name} {user?.neurodivergence && ` | ${user.neurodivergence}`}
+				</Text>
 				<Text style={styles.useremail}>{user?.email}</Text>
+				{user?.about && (
+					<Text style={styles.useremail} numberOfLines={3}>
+						{user.about}
+					</Text>
+				)}
 			</View>
 
 			<View
@@ -144,8 +167,13 @@ export default function User() {
 
 					<FlatList
 						data={user?.helps}
-						keyExtractor={(danger) => danger.id}
-						renderItem={({ item: danger }) => <Text>{danger.about}</Text>}
+						keyExtractor={(help) => help.id}
+						renderItem={({ item: help }) => (
+							<Text style={styles.userHelpOrDanger} numberOfLines={1}>
+								{help.about}
+							</Text>
+						)}
+						style={styles.userHelpOrDangerList}
 					/>
 				</View>
 
@@ -160,7 +188,12 @@ export default function User() {
 					<FlatList
 						data={user?.dangers}
 						keyExtractor={(danger) => danger.id}
-						renderItem={({ item: danger }) => <Text>{danger.about}</Text>}
+						renderItem={({ item: danger }) => (
+							<Text style={styles.userHelpOrDanger} numberOfLines={1}>
+								{danger.about}
+							</Text>
+						)}
+						style={styles.userHelpOrDangerList}
 					/>
 				</View>
 			</View>
@@ -177,11 +210,21 @@ export default function User() {
 					flexDirection: 'row',
 					alignItems: 'center',
 					gap: 5,
+					borderWidth: 2,
+					borderColor: colors.red,
+					paddingVertical: 3,
+					paddingHorizontal: 6,
+					borderRadius: 10,
+					width: '80%',
+					justifyContent: 'center',
+					marginHorizontal: 6,
 				}}
 				onPress={logout}
 			>
 				<Feather name="log-out" color={colors.red} size={20} />
-				<Text style={{ color: colors.red, fontSize: 25 }}>Sair</Text>
+				<Text style={{ color: colors.red, fontSize: 25, fontWeight: '600' }}>
+					Sair
+				</Text>
 			</TouchableOpacity>
 			<QrCodeModal
 				isVisible={isQrCodeModalVisible}

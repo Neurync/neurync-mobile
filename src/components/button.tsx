@@ -57,10 +57,10 @@ interface ButtonProps extends TouchableOpacityProps {
 	outline?: boolean;
 }
 
-function Button({ children, outline, ...rest }: ButtonProps) {
+function Button({ children, outline, style, ...rest }: ButtonProps) {
 	return (
 		<TouchableOpacity
-			style={outline ? styles.outlineButton : styles.button}
+			style={[outline ? styles.outlineButton : styles.button, style]}
 			{...rest}
 		>
 			{children}

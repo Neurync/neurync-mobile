@@ -1,13 +1,12 @@
-import type { IDanger } from "./IDanger";
-import type { IHelp } from "./IHelp";
+import type { GetUserById200DangersItem, GetUserById200HelpsItem } from "@/services/api/schemas";
 
 export interface IUserPayload {
   id: string,
   name: string,
   email: string,
-  about?: string;
-  neurodivergence?: string;
-  helps?: IHelp[];
-  dangers?: IDanger[];
+  about: string | null;
+  neurodivergence: string | null;
+  helps: GetUserById200HelpsItem[];
+  dangers: GetUserById200DangersItem[];
   token: string
 }
