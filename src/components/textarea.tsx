@@ -9,9 +9,17 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		paddingHorizontal: 20,
 		borderColor: colors.seaGreen,
+		maxHeight: 180,
 	},
 });
 
-export function Input({ ...rest }: TextInputProps) {
-	return <TextInput style={[styles.input, rest.style]} {...rest} />;
+export function TextArea({ ...rest }: TextInputProps) {
+	return (
+		<TextInput
+			style={[styles.input, rest.style]}
+			{...rest}
+			numberOfLines={200}
+			multiline
+		/>
+	);
 }

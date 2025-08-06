@@ -1,8 +1,11 @@
 import { Button } from '@/components/button';
+import { Dropdown } from '@/components/dropdown';
 import { Input } from '@/components/input';
 import { InputWithSuggestions } from '@/components/input-with-sugestions';
 import { Logo } from '@/components/logo';
+import { AddDangerOrHelpModal } from '@/components/modals/add-danger-or-help-modal';
 import { QrCodeModal } from '@/components/modals/qr-code-modal';
+import { TextArea } from '@/components/textarea';
 import { colors } from '@/constants/colors';
 import { fontSize } from '@/constants/fontSize';
 import { screenStyle } from '@/constants/screen-style';
@@ -13,11 +16,13 @@ import { useRouter } from 'expo-router';
 import { useContext, useState } from 'react';
 import {
 	FlatList,
+	ScrollView,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
 	View,
 } from 'react-native';
+import { Link } from '@/components/link';
 
 const styles = StyleSheet.create({
 	container: {
@@ -92,6 +97,21 @@ export default function EditProfile() {
 	const router = useRouter();
 	const { user, setUser } = useContext(AppContext);
 
+	if (!user) {
+		router.navigate('/login');
+		return;
+	}
+
+	const [name, setName] = useState(user.name);
+	const [neurodivergence, setNeurodivergence] = useState(
+		user?.neurodivergence ?? ''
+	);
+	const [about, setAbout] = useState(user.about ?? '');
+	const [helps, setHelps] = useState(user.helps.map((help) => help.about) ?? []);
+	const [dangers, setDangers] = useState(
+		user.dangers.map((danger) => danger.about) ?? []
+	);
+
 	return (
 		<View style={screenStyle.container}>
 			<Logo />
@@ -111,10 +131,11 @@ export default function EditProfile() {
 			</View>
 
 			<View style={styles.container}>
-				<Input placeholder="Nome" />
+				<Input placeholder="Nome" value={name} onChangeText={setName} />
+
 				<InputWithSuggestions
-					value={''}
-					onChange={() => console.log()}
+					value={neurodivergence}
+					onChange={(text) => setNeurodivergence(text)}
 					placeholder="Digite sua neurodivergência"
 					options={[
 						'TEA',
@@ -130,55 +151,49 @@ export default function EditProfile() {
 					]}
 				/>
 
-				<View
+				<TextArea
+					placeholder="Sobre"
+					value={about}
+					multiline
+					numberOfLines={20}
+					onChangeText={setAbout}
+				/>
+
+				<TouchableOpacity
+					onPress={() => router.navigate('/edit-helps')}
 					style={{
-						flexDirection: 'row',
-						alignItems: 'flex-start',
-						justifyContent: 'flex-start',
-						padding: 8,
+						padding: 5,
 						width: '100%',
+						flexDirection: 'row',
+						justifyContent: 'space-between',
+						borderWidth: 1,
+						borderColor: colors.seaGreen,
+						borderRadius: 10,
 					}}
 				>
-					<View
-						style={[
-							styles.userInfoContainer,
-							{ borderTopRightRadius: 0, borderBottomRightRadius: 0 },
-						]}
-					>
-						<Text style={styles.userInfoTitle}>CONFORTOS</Text>
+					<Text style={{ color: colors.seaGreen, fontSize: fontSize.lg }}>
+						Editar Confortos
+					</Text>
+					<Feather name="edit" color={colors.seaGreen} size={20} />
+				</TouchableOpacity>
 
-						<FlatList
-							data={user?.helps}
-							keyExtractor={(help) => help.id}
-							renderItem={({ item: help }) => (
-								<Text style={styles.userHelpOrDanger} numberOfLines={1}>
-									{help.about}
-								</Text>
-							)}
-							style={styles.userHelpOrDangerList}
-						/>
-					</View>
-
-					<View
-						style={[
-							styles.userInfoContainer,
-							{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 },
-						]}
-					>
-						<Text style={styles.userInfoTitle}>GATILHOS</Text>
-
-						<FlatList
-							data={user?.dangers}
-							keyExtractor={(danger) => danger.id}
-							renderItem={({ item: danger }) => (
-								<Text style={styles.userHelpOrDanger} numberOfLines={1}>
-									{danger.about}
-								</Text>
-							)}
-							style={styles.userHelpOrDangerList}
-						/>
-					</View>
-				</View>
+				<TouchableOpacity
+					onPress={() => router.navigate('/edit-dangers')}
+					style={{
+						padding: 5,
+						width: '100%',
+						flexDirection: 'row',
+						justifyContent: 'space-between',
+						borderWidth: 1,
+						borderColor: colors.seaGreen,
+						borderRadius: 10,
+					}}
+				>
+					<Text style={{ color: colors.seaGreen, fontSize: fontSize.lg }}>
+						Editar Gatilhos
+					</Text>
+					<Feather name="edit" color={colors.seaGreen} size={20} />
+				</TouchableOpacity>
 			</View>
 
 			<Button style={{ position: 'absolute', bottom: '10%' }}>
