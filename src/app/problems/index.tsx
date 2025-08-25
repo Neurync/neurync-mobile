@@ -35,7 +35,6 @@ export default function Problems() {
 						flexDirection: 'row',
 						justifyContent: 'space-evenly',
 						alignItems: 'flex-start',
-						overflowY: 'scroll',
 					}}
 				>
 					{data.map(({ emoji, description, isFavorited }) => (

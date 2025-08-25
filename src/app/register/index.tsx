@@ -18,7 +18,7 @@ function RegisterContent() {
 		<View style={screenStyle.container}>
 			<View style={{ flexDirection: 'row-reverse', alignItems: 'center', gap: 5 }}>
 				<Logo />
-				{currentStep != 'form' && (
+				{currentStep !== 'form' && (
 					<TouchableOpacity onPress={back}>
 						<Feather name="arrow-left-circle" size={30} color={colors.seaGreen} />
 					</TouchableOpacity>

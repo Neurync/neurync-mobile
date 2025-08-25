@@ -1,6 +1,83 @@
 import { colors } from '@/constants/colors';
 import { Feather } from '@expo/vector-icons';
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+	ActivityIndicator,
+	Alert,
+	Modal,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from 'react-native';
+import { useContext, useState } from 'react';
+import { AppContext } from '@/contexts/AppContext';
+import { ESP32_IP } from '@/env';
+import { router } from 'expo-router';
+
+interface MessageModalProps {
+	isVisible: boolean;
+	isLoading: boolean;
+	firstActionButtonPress: () => void;
+	secondActionButtonPress: () => void;
+	setIsVisible: (visible: boolean) => void;
+}
+
+export function MessageModal({
+	isVisible,
+	setIsVisible,
+	isLoading,
+	firstActionButtonPress,
+	secondActionButtonPress,
+}: MessageModalProps) {
+	return (
+		<Modal
+			animationType="fade"
+			transparent
+			visible={isVisible}
+			onRequestClose={() => setIsVisible(false)}
+		>
+			<View style={styles.backdrop}>
+				<View style={styles.modalContainer}>
+					{!isLoading ? (
+						<>
+							<Text style={styles.title}>Qual é o problema?</Text>
+
+							<View style={{ gap: 20 }}>
+								<TouchableOpacity
+									onPress={firstActionButtonPress}
+									style={styles.actionButton}
+								>
+									<Feather name="log-out" size={50} color={colors.black} />
+									<Text style={styles.buttonText}>Preciso sair</Text>
+								</TouchableOpacity>
+
+								<TouchableOpacity
+									onPress={secondActionButtonPress}
+									style={styles.actionButton}
+								>
+									<Feather name="help-circle" size={50} color={colors.black} />
+									<Text style={styles.buttonText}>Preciso de {'\n'} ajuda</Text>
+								</TouchableOpacity>
+							</View>
+							<TouchableOpacity
+								style={styles.backButton}
+								onPress={() => setIsVisible(false)}
+							>
+								<Text style={styles.backButtonText}>Voltar</Text>
+							</TouchableOpacity>
+						</>
+					) : (
+						<>
+							<Text style={styles.title}>Aguardando a resposta...</Text>
+
+							<ActivityIndicator size={30} color={colors.seaGreen} />
+						</>
+					)}
+				</View>
+			</View>
+		</Modal>
+	);
+}
 
 const styles = StyleSheet.create({
 	backdrop: {
@@ -84,56 +161,3 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 });
-
-interface MessageModalProps {
-	isVisible: boolean;
-	firstActionButtonPress: () => void;
-	secondActionButtonPress: () => void;
-	setIsVisible: (visible: boolean) => void;
-}
-
-export function MessageModal({
-	isVisible,
-	setIsVisible,
-	firstActionButtonPress,
-	secondActionButtonPress,
-}: MessageModalProps) {
-	return (
-		<Modal
-			animationType="fade"
-			transparent
-			visible={isVisible}
-			onRequestClose={() => setIsVisible(false)}
-		>
-			<View style={styles.backdrop}>
-				<View style={styles.modalContainer}>
-					<Text style={styles.title}>Qual é o problema?</Text>
-
-					<View style={{ gap: 20 }}>
-						<TouchableOpacity
-							onPress={firstActionButtonPress}
-							style={styles.actionButton}
-						>
-							<Feather name="log-out" size={50} color={colors.black} />
-							<Text style={styles.buttonText}>Preciso sair</Text>
-						</TouchableOpacity>
-
-						<TouchableOpacity
-							onPress={secondActionButtonPress}
-							style={styles.actionButton}
-						>
-							<Feather name="help-circle" size={50} color={colors.black} />
-							<Text style={styles.buttonText}>Preciso de {'\n'} ajuda</Text>
-						</TouchableOpacity>
-					</View>
-					<TouchableOpacity
-						style={styles.backButton}
-						onPress={() => setIsVisible(false)}
-					>
-						<Text style={styles.backButtonText}>Voltar</Text>
-					</TouchableOpacity>
-				</View>
-			</View>
-		</Modal>
-	);
-}

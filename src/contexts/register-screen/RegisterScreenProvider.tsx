@@ -1,5 +1,5 @@
 import { RegisterScreenContext, type Step } from './RegisterScreenContext';
-import { ReactNode, useContext, useState } from 'react';
+import { type ReactNode, useContext, useState } from 'react';
 
 export function RegisterScreenProvider({ children }: { children: ReactNode }) {
 	// Screen States

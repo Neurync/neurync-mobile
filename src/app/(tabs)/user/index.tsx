@@ -3,7 +3,7 @@ import { QrCodeModal } from '@/components/modals/qr-code-modal';
 import { colors } from '@/constants/colors';
 import { fontSize } from '@/constants/fontSize';
 import { AppContext } from '@/contexts/AppContext';
-import { QRDCODE_WEB_URL } from '@/env';
+import { QRCODE_WEB_URL } from '@/env';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useContext, useState } from 'react';
@@ -229,7 +229,7 @@ export default function User() {
 			<QrCodeModal
 				isVisible={isQrCodeModalVisible}
 				closeModal={closeQrCodeModal}
-				qrCode={`${QRDCODE_WEB_URL}"${user?.id}"`}
+				qrCode={`${QRCODE_WEB_URL}"${user?.id}"`}
 			/>
 		</View>
 	);
