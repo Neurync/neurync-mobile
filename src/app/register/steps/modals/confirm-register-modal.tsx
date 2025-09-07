@@ -1,7 +1,7 @@
 import { DefaultModal } from '@/components/modals/default-modal';
 import { useRegisterScreenContext } from '@/contexts/register-screen/RegisterScreenProvider';
 import { getUsers } from '@/services/api/endpoints/users/users';
-import { CreateUserBody } from '@/services/api/schemas';
+import type { CreateUserBody } from '@/services/api/schemas';
 import { useRouter } from 'expo-router';
 import { Alert } from 'react-native';
 
@@ -24,7 +24,7 @@ export function ConfirmRegisterModal({
 	const { name, email, password, neurodivergence, helps, dangers } =
 		useRegisterScreenContext();
 
-	function handleYes() {
+	async function handleYes() {
 		const newUser = {
 			name,
 			email,
@@ -34,7 +34,7 @@ export function ConfirmRegisterModal({
 			dangers,
 		};
 
-		handleCreateUser(newUser);
+		await handleCreateUser(newUser);
 	}
 
 	function handleNo() {
@@ -53,6 +53,7 @@ export function ConfirmRegisterModal({
 			setIsVisible(false);
 
 			router.push('/login');
+			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		} catch (error: any) {
 			if (error.response) {
 				let errorMessage = 'Tente novamente mais tarde.';

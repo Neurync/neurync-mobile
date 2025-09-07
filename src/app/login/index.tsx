@@ -18,6 +18,8 @@ import {
 	View,
 } from 'react-native';
 import { styles } from './styles';
+import { helpsStorage } from '@/storage/helps-storage';
+import { dangersStorage } from '@/storage/dangers-storage';
 
 export default function Login() {
 	const [email, setEmail] = useState('');
@@ -27,7 +29,7 @@ export default function Login() {
 
 	const router = useRouter();
 
-	const { setUser } = useContext(AppContext);
+	const { setUser, setHelps, setDangers } = useContext(AppContext);
 
 	const { loginUser, getUserById } = getUsers();
 
@@ -83,11 +85,13 @@ export default function Login() {
 
 		console.log({ response });
 
-		console.log({ dangers: response.dangers });
-
 		setUser(response);
+		setHelps(response.helps);
+		setDangers(response.dangers);
 
 		await userStorage.save(response);
+		await helpsStorage.save(response.helps);
+		await dangersStorage.save(response.dangers);
 
 		setIsLoading(false);
 		router.push('/(tabs)/home');

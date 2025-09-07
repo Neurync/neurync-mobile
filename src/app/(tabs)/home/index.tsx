@@ -4,15 +4,20 @@ import { Logo } from '@/components/logo';
 import { DefaultModal as SuccessModal } from '@/components/modals/default-modal';
 import { MessageModal } from '@/components/modals/message-modal';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { View } from 'react-native';
 import { screenStyle } from '../../../constants/screen-style';
+import { AppContext } from '@/contexts/AppContext';
 
 export default function Home() {
 	const router = useRouter();
+	const { user } = useContext(AppContext);
+
+	if (!user) return router.navigate('/login');
 
 	const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
 	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	return (
 		<View style={screenStyle.container}>
@@ -42,15 +47,10 @@ export default function Home() {
 
 			<MessageModal
 				isVisible={isMessageModalOpen}
-				firstActionButtonPress={() => {
-					setIsMessageModalOpen(false);
-					setIsSuccessModalOpen(true);
-				}}
-				secondActionButtonPress={() => {
-					setIsMessageModalOpen(false);
-					setIsSuccessModalOpen(true);
-				}}
+				isLoading={isLoading}
+				setIsLoading={setIsLoading}
 				setIsVisible={setIsMessageModalOpen}
+				user={user}
 			/>
 
 			<SuccessModal

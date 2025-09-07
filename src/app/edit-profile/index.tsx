@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
 
 export default function EditProfile() {
 	const router = useRouter();
-	const { user, setUser } = useContext(AppContext);
+	const { user, setUser, helps: hs, dangers: ds } = useContext(AppContext);
 
 	if (!user) {
 		router.navigate('/login');
@@ -107,10 +107,8 @@ export default function EditProfile() {
 		user?.neurodivergence ?? ''
 	);
 	const [about, setAbout] = useState(user.about ?? '');
-	const [helps, setHelps] = useState(user.helps.map((help) => help.about) ?? []);
-	const [dangers, setDangers] = useState(
-		user.dangers.map((danger) => danger.about) ?? []
-	);
+	const [helps, setHelps] = useState(hs.map((help) => help.about) ?? []);
+	const [dangers, setDangers] = useState(ds.map((danger) => danger.about) ?? []);
 
 	return (
 		<View style={screenStyle.container}>

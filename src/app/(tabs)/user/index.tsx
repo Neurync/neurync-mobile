@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
 
 export default function User() {
 	const router = useRouter();
-	const { user, setUser } = useContext(AppContext);
+	const { user, setUser, helps, dangers } = useContext(AppContext);
 	const [isQrCodeModalVisible, setIsQrCodeModalVisible] = useState(false);
 
 	function openQrCodeModal() {
@@ -166,7 +166,7 @@ export default function User() {
 					<Text style={styles.userInfoTitle}>CONFORTOS</Text>
 
 					<FlatList
-						data={user?.helps}
+						data={helps}
 						keyExtractor={(help) => help.id}
 						renderItem={({ item: help }) => (
 							<Text style={styles.userHelpOrDanger} numberOfLines={1}>
@@ -186,7 +186,7 @@ export default function User() {
 					<Text style={styles.userInfoTitle}>GATILHOS</Text>
 
 					<FlatList
-						data={user?.dangers}
+						data={dangers}
 						keyExtractor={(danger) => danger.id}
 						renderItem={({ item: danger }) => (
 							<Text style={styles.userHelpOrDanger} numberOfLines={1}>

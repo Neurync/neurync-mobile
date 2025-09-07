@@ -52,108 +52,16 @@ interface AlertButtonProps extends TouchableOpacityProps {
 export function AlertButton({ style }: AlertButtonProps) {
 	const { user } = useContext(AppContext);
 
-	if (!user) return router.navigate('/login');
+	if (!user) {
+		router.navigate('/login');
+		return <></>;
+	}
 
 	const [isLoading, setIsLoading] = useState(false);
-	const [teacherAnswer, setTeacherAnswer] = useState('');
-
 	const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
-	const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
-	const [successModalIcon, setSuccessModalIcon] =
-		useState<keyof typeof Feather.glyphMap>('check-circle');
-	const [successModalFirstText, setSuccessModalFirstText] = useState('');
-	const [successModalSecondText, setSuccessModalSecondText] = useState('');
 
 	function openMessageModal() {
 		setIsMessageModalVisible(true);
-	}
-
-	function closeMessageModal() {
-		setIsMessageModalVisible(false);
-	}
-
-	function openSuccessModal() {
-		setIsSuccessModalVisible(true);
-	}
-
-	function closeSuccessModal() {
-		setIsSuccessModalVisible(false);
-	}
-
-	function actionMessageModalButton() {
-		closeMessageModal();
-		openSuccessModal();
-	}
-
-	async function firstModalMessageButton() {
-		await sendAlert('Posso sair?');
-		actionMessageModalButton();
-	}
-
-	async function secondModalMessageButton() {
-		await sendAlert('Pode me ajudar?');
-		actionMessageModalButton();
-	}
-
-	async function sendAlert(message: string) {
-		setIsLoading(true);
-		setTeacherAnswer('');
-
-		if (!user) return router.navigate('/login');
-
-		try {
-			await fetch(`http://${ESP32_IP}/question`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: `username=${encodeURIComponent(
-					user.name
-				)}&message=${encodeURIComponent(message)}`,
-			});
-
-			const answer = await pollAnswer();
-
-			if (answer === 'yes') {
-				setSuccessModalIcon('check-circle');
-				setSuccessModalFirstText('Aprovado');
-				setSuccessModalSecondText(`O professor aprovou seu alerta '${message}'`);
-			} else {
-				setSuccessModalIcon('x-circle');
-				setSuccessModalFirstText('Negado');
-				setSuccessModalSecondText(`O professor negou seu alerta '${message}'`);
-			}
-
-			setTeacherAnswer(answer);
-			setIsLoading(false);
-			openSuccessModal();
-		} catch (error) {
-			console.error(error);
-			setIsLoading(false);
-			Alert.alert(
-				'Ocorreu um erro',
-				'Ocorreu um erro ao mandar o alerta. Verifique a conexão e tente novamente.'
-			);
-		}
-	}
-
-	function pollAnswer(): Promise<string> {
-		const ONE_SECOND = 1000;
-
-		return new Promise((resolve, reject) => {
-			const interval = setInterval(async () => {
-				try {
-					const response = await fetch(`http://${ESP32_IP}/answer`);
-					const answer = await response.text();
-
-					if (answer === 'yes' || answer === 'no') {
-						clearInterval(interval);
-						resolve(answer);
-					}
-				} catch (error) {
-					clearInterval(interval);
-					reject(error);
-				}
-			}, ONE_SECOND * 2);
-		});
 	}
 
 	return (
@@ -161,19 +69,9 @@ export function AlertButton({ style }: AlertButtonProps) {
 			<MessageModal
 				isVisible={isMessageModalVisible}
 				isLoading={isLoading}
+				setIsLoading={setIsLoading}
 				setIsVisible={setIsMessageModalVisible}
-				firstActionButtonPress={firstModalMessageButton}
-				secondActionButtonPress={secondModalMessageButton}
-			/>
-
-			<SuccessModal
-				icon={successModalIcon}
-				firstText={successModalFirstText}
-				secondText={successModalSecondText}
-				isVisible={isSuccessModalVisible}
-				closeModal={closeSuccessModal}
-				firstButtonText="Ok"
-				firstButtonPress={closeSuccessModal}
+				user={user}
 			/>
 
 			<TouchableOpacity
