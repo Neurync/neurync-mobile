@@ -1,26 +1,22 @@
 import { Button } from '@/components/button';
+import { DropdownEditDangerAndHelp } from '@/components/dropdown-edit-danger-and-help';
 import { Logo } from '@/components/logo';
+import { AddDangerOrHelpModal } from '@/components/modals/add-danger-or-help-modal';
+import { DefaultModal as ConfirmModal } from '@/components/modals/default-modal';
 import { colors } from '@/constants/colors';
+import { fontSize } from '@/constants/fontSize';
 import { screenStyle } from '@/constants/screen-style';
 import { AppContext } from '@/contexts/AppContext';
+import { getHelps } from '@/services/api/endpoints/helps/helps';
+import type { GetUserHelps200Item } from '@/services/api/schemas/getUserHelps200Item';
+import { helpsStorage } from '@/storage/helps-storage';
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { DropdownEditDangerAndHelp } from '@/components/dropdown-edit-danger-and-help';
-import { AddDangerOrHelpModal } from '@/components/modals/add-danger-or-help-modal';
-import { fontSize } from '@/constants/fontSize';
-import type { GetUserHelps200Item } from '@/services/api/schemas/getUserHelps200Item';
-import { DefaultModal as ConfirmModal } from '@/components/modals/default-modal';
-import { getHelps } from '@/services/api/endpoints/helps/helps';
-import React from 'react';
-import { useFocusEffect } from 'expo-router';
-import { getUsers } from '@/services/api/endpoints/users/users';
-import { userStorage } from '@/storage/user-storage';
-import { helpsStorage } from '@/storage/helps-storage';
 
 export default function EditHelps() {
-	const { user, setUser, helps, setHelps } = useContext(AppContext);
+	const { user, helps, setHelps } = useContext(AppContext);
 	const { createManyUserHelp, deleteUserHelps, getUserHelps } = getHelps();
 
 	if (!user) {
