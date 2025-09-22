@@ -2,10 +2,11 @@ import { colors } from '@/constants/colors';
 import { TextInput } from 'react-native';
 import type { INonverbalButton } from '@/interfaces/INonverbalButton';
 import { useState } from 'react';
+import type { GetUserNonverbalMessages200Item } from '@/services/api/schemas';
 
 export interface SearchbarProps {
-	data: INonverbalButton[];
-	setData: (newData: INonverbalButton[]) => void;
+	data: GetUserNonverbalMessages200Item[];
+	setData: (newData: GetUserNonverbalMessages200Item[]) => void;
 }
 
 export function Searchbar({ data, setData }: SearchbarProps) {
@@ -16,7 +17,7 @@ export function Searchbar({ data, setData }: SearchbarProps) {
 
 		setData(
 			data.filter((element) => {
-				if (element.description.toLowerCase().includes(search.toLowerCase()))
+				if (element.content.toLowerCase().includes(search.toLowerCase()))
 					return element;
 			})
 		);

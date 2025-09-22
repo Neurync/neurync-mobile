@@ -10,11 +10,8 @@ import {
 	type ViewStyle,
 } from 'react-native';
 import { MessageModal } from './modals/message-modal';
-import { DefaultModal as SuccessModal } from './modals/default-modal';
 import { router } from 'expo-router';
 import { AppContext } from '@/contexts/AppContext';
-import { ESP32_IP } from '@/env';
-import type { Feather } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
 	container: {

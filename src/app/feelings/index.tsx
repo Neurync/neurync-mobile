@@ -3,12 +3,38 @@ import { NonverbalButton } from '@/components/nonverbal-button';
 import { NonverbalHeader } from '@/components/nonverbal-header';
 import { colors } from '@/constants/colors';
 import { screenStyle } from '@/constants/screen-style';
-import { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { useContext, useEffect, useState } from 'react';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import { nonverbalButtonData } from './data';
+import { getNonverbalMessage } from '@/services/api/endpoints/nonverbal-message/nonverbal-message';
+import type { GetUserNonverbalMessages200Item } from '@/services/api/schemas';
+import { AppContext } from '@/contexts/AppContext';
 
 export default function Feelings() {
-	const [data, setData] = useState(nonverbalButtonData);
+	const { getUserFeelingsNonverbalMessages } = getNonverbalMessage();
+
+	const { user } = useContext(AppContext);
+	const [data, setData] = useState<GetUserNonverbalMessages200Item[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
+
+	async function loadMessages() {
+		setIsLoading(true);
+
+		const response = await getUserFeelingsNonverbalMessages({
+			headers: {
+				Authorization: `Bearer ${user?.token}`,
+			},
+		});
+
+		if (!response) return setData([]);
+
+		setData(response.data);
+		setIsLoading(false);
+	}
+
+	useEffect(() => {
+		loadMessages();
+	}, []);
 
 	return (
 		<View
@@ -25,28 +51,37 @@ export default function Feelings() {
 			<View style={{ width: '100%', paddingTop: 10 }}>
 				<Text style={screenStyle.title}>Eu me sinto...</Text>
 
-				<ScrollView
-					contentContainerStyle={{
-						paddingTop: 5,
-						width: '100%',
-						display: 'flex',
-						flexWrap: 'wrap',
-						flexDirection: 'row',
-						justifyContent: 'space-evenly',
-						alignItems: 'flex-start',
-						overflowY: 'scroll',
-					}}
-					style={{ maxHeight: '85%' }}
-				>
-					{data.map(({ emoji, description, isFavorited }) => (
-						<NonverbalButton
-							key={emoji}
-							emoji={emoji}
-							description={description}
-							isFavorited={isFavorited}
-						/>
-					))}
-				</ScrollView>
+				{isLoading ? (
+					<View style={{ height: '100%', alignItems: 'center', marginTop: '50%' }}>
+						<ActivityIndicator size={40} color={colors.seaGreen} />
+					</View>
+				) : (
+					<ScrollView
+						contentContainerStyle={{
+							paddingTop: 5,
+							width: '100%',
+							display: 'flex',
+							flexWrap: 'wrap',
+							flexDirection: 'row',
+							justifyContent: 'space-evenly',
+							alignItems: 'flex-start',
+							overflowY: 'scroll',
+						}}
+						style={{ maxHeight: '85%' }}
+					>
+						{data.map(({ id, emoji_icon, content, is_favorited }) => (
+							<NonverbalButton
+								key={id}
+								id={id}
+								emoji={emoji_icon}
+								description={content}
+								isFavorited={is_favorited}
+								data={data}
+								setData={setData}
+							/>
+						))}
+					</ScrollView>
+				)}
 			</View>
 
 			<View
