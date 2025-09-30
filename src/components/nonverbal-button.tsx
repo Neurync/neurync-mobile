@@ -13,6 +13,7 @@ import { useContext, useState } from 'react';
 import * as Speech from 'expo-speech';
 import { getNonverbalMessage } from '@/services/api/endpoints/nonverbal-message/nonverbal-message';
 import { AppContext } from '@/contexts/AppContext';
+import { sendMessage } from '@/esp32/sendMessage';
 
 export function NonverbalButton({
 	id,
@@ -41,9 +42,10 @@ export function NonverbalButton({
 		setIsModalVisible(false);
 	}
 
-	function handlePress() {
+	async function handlePress() {
 		openModal();
 		speak(description);
+		await sendMessage(user?.name, description, 'nonverbal-message');
 	}
 
 	async function handleFavorite() {
@@ -64,10 +66,9 @@ export function NonverbalButton({
 			);
 		} catch (error) {
 			console.error('Erro ao favoritar:', error);
-			// Opcional: mostrar um alerta ao usuário
 			Alert.alert('Erro', 'Não foi possível favoritar esta mensagem.');
 		} finally {
-			setIsLoading(false); // SEMPRE desativa o loading, mesmo se der erro
+			setIsLoading(false);
 		}
 	}
 
@@ -89,10 +90,9 @@ export function NonverbalButton({
 			);
 		} catch (error) {
 			console.error('Erro ao desfavoritar:', error);
-			// Opcional: mostrar um alerta ao usuário
 			Alert.alert('Erro', 'Não foi possível desfavoritar esta mensagem.');
 		} finally {
-			setIsLoading(false); // SEMPRE desativa o loading, mesmo se der erro
+			setIsLoading(false);
 		}
 	}
 

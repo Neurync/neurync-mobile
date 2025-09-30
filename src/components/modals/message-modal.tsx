@@ -13,6 +13,8 @@ import { DefaultModal as SuccessModal } from './default-modal';
 import { useState } from 'react';
 import type { IUserPayload } from '@/interfaces/IUserPayload';
 import { ESP32_IP } from '@/env';
+import { pollAnswer } from '@/esp32/pollAnswer';
+import { sendMessage } from '@/esp32/sendMessage';
 
 interface MessageModalProps {
 	isVisible: boolean;
@@ -65,16 +67,10 @@ export function MessageModal({
 		setTeacherAnswer('');
 
 		try {
-			const response = await fetch(`http://${ESP32_IP}/question`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: `username=${encodeURIComponent(
-					user.name
-				)}&message=${encodeURIComponent(message)}`,
-			});
+			const response = await sendMessage(user.name, message, 'question');
 
-			if (!response.ok) {
-				throw new Error(`HTTP Error: ${response.status}`);
+			if (!response || !response.ok) {
+				throw new Error(`HTTP Error: ${response?.status || 'unknown'}`);
 			}
 
 			const answer = await pollAnswer();
@@ -90,52 +86,11 @@ export function MessageModal({
 			}
 
 			setTeacherAnswer(answer);
-			setIsLoading(false);
 			openSuccessModal();
 		} catch (error) {
+		} finally {
 			setIsLoading(false);
-			console.error('Erro ao enviar alerta:', error);
-
-			let errorMessage =
-				'Por favor, verifique se está conectado na rede e tente novamente.';
-
-			// Se for erro de rede (offline, timeout, DNS, etc)
-			if (
-				error instanceof TypeError &&
-				/network request failed/i.test(error.message)
-			) {
-				errorMessage =
-					'Não foi possível conectar ao dispositivo. Verifique se está na mesma rede Wi-Fi e tente novamente.';
-			}
-
-			// Se for erro de resposta HTTP (4xx, 5xx)
-			if (error instanceof Error && /HTTP Error/i.test(error.message)) {
-				errorMessage = 'O servidor respondeu com erro. Tente novamente mais tarde.';
-			}
-
-			Alert.alert('Erro de conexão', errorMessage);
 		}
-	}
-
-	function pollAnswer(): Promise<string> {
-		const ONE_SECOND = 1000;
-
-		return new Promise((resolve, reject) => {
-			const interval = setInterval(async () => {
-				try {
-					const response = await fetch(`http://${ESP32_IP}/answer`);
-					const answer = await response.text();
-
-					if (answer === 'yes' || answer === 'no') {
-						clearInterval(interval);
-						resolve(answer);
-					}
-				} catch (error) {
-					clearInterval(interval);
-					reject(error);
-				}
-			}, ONE_SECOND * 2);
-		});
 	}
 
 	return (
